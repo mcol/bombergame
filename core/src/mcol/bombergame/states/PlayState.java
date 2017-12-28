@@ -58,7 +58,7 @@ public class PlayState extends State {
         for (int i = 0; i < skyscrapers.size; i++) {
             Skyscraper ss = skyscrapers.get(i);
             if (ss.collides(bomber.getBounds())) {
-                gsm.set(new PlayState(gsm));
+                gsm.set(new MenuState(gsm));
                 return;
             }
             for (int j = 0; j < bombs.size; j++) {
@@ -69,6 +69,9 @@ public class PlayState extends State {
                 }
             }
         }
+
+        if (skyscrapers.size == 0)
+            gsm.set(new MenuState(gsm));
 
         for (int i = 0; i < bombs.size; i++) {
             Bomb bb = bombs.get(i);

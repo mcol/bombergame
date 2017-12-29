@@ -30,6 +30,12 @@ public class Bomber {
         xMove = SPEED_START;
     }
 
+    /** Sets the the bomber coordinates. */
+    public void setPosition(int x, int y) {
+        position.x = x;
+        position.y = y;
+    }
+
     public void nextRow() {
         position.x = -texture.getWidth() / FRAME_COUNT / 2;
         position.y += POSITION_CHANGE;

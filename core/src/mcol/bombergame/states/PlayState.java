@@ -38,9 +38,16 @@ public class PlayState extends State {
         background = new Texture("gamebg.png");
         bomber = new Bomber(0, (int) camera.viewportHeight - 50);
         skyscrapers = new Array<Skyscraper>();
+        bombs = new Array<Bomb>();
+        createWorld();
+    }
+
+    /** Initializes the world. */
+    private void createWorld() {
         for (int i = 0; i < SKYSCRAPER_COUNT; i++)
             skyscrapers.add(new Skyscraper(i * (Skyscraper.WIDTH + SKYSCRAPER_GAP)));
-        bombs = new Array<Bomb>();
+        bomber.setPosition(0, (int) camera.viewportHeight - 50);
+        bombs.clear();
     }
 
     protected void handleInput() {
@@ -77,8 +84,11 @@ public class PlayState extends State {
             }
         }
 
-        if (skyscrapers.size == 0)
-            game.setScreen(new MenuState(game, sb));
+        // level completed
+        if (skyscrapers.size == 0) {
+            hud.increaseLevel();
+            createWorld();
+        }
 
         for (int i = 0; i < bombs.size; i++) {
             Bomb bb = bombs.get(i);

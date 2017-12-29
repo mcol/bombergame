@@ -1,6 +1,7 @@
 package mcol.bombergame.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -43,6 +44,8 @@ public class PlayState extends State {
             if (bombs.size < MAX_BOMB_COUNT)
                 bombs.add(new Bomb(bomber.getPosition()));
         }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
+            game.setScreen(new MenuState(game, sb));
     }
 
     protected void update(float dt) {

@@ -28,9 +28,8 @@ public class PlayState extends State {
     private final Array<Bomb> bombs;
 
     /** Constructor. */
-    PlayState(GameStateManager gsm) {
-        super(gsm);
-        camera.setToOrtho(false, BomberGame.WIDTH, BomberGame.HEIGHT);
+    public PlayState(BomberGame game, SpriteBatch sb) {
+        super(game, sb);
         background = new Texture("gamebg.png");
         bomber = new Bomber(0, (int) camera.viewportHeight - 50);
         skyscrapers = new Array<Skyscraper>();
@@ -39,7 +38,6 @@ public class PlayState extends State {
         bombs = new Array<Bomb>();
     }
 
-    @Override
     protected void handleInput() {
         if (Gdx.input.justTouched()) {
             if (bombs.size < MAX_BOMB_COUNT)
@@ -47,8 +45,7 @@ public class PlayState extends State {
         }
     }
 
-    @Override
-    public void update(float dt) {
+    protected void update(float dt) {
         handleInput();
 
         bomber.update(dt);
@@ -58,7 +55,7 @@ public class PlayState extends State {
         for (int i = 0; i < skyscrapers.size; i++) {
             Skyscraper ss = skyscrapers.get(i);
             if (ss.collides(bomber.getBounds())) {
-                gsm.set(new MenuState(gsm));
+                game.setScreen(new MenuState(game, sb));
                 return;
             }
             for (int j = 0; j < bombs.size; j++) {
@@ -71,7 +68,7 @@ public class PlayState extends State {
         }
 
         if (skyscrapers.size == 0)
-            gsm.set(new MenuState(gsm));
+            game.setScreen(new MenuState(game, sb));
 
         for (int i = 0; i < bombs.size; i++) {
             Bomb bb = bombs.get(i);
@@ -84,8 +81,10 @@ public class PlayState extends State {
     }
 
     @Override
-    public void render(SpriteBatch sb) {
-        sb.setProjectionMatrix(camera.combined);
+    public void render(float delta) {
+        super.render(delta);
+
+        // draw the game elements
         sb.begin();
         sb.draw(background, camera.position.x - camera.viewportWidth / 2, 0);
         for (Skyscraper ss : skyscrapers) {

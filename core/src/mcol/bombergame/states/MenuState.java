@@ -11,25 +11,25 @@ public class MenuState extends State {
     private final Texture background;
 
     /** Constructor. */
-    public MenuState(GameStateManager gsm) {
-        super(gsm);
+    public MenuState(BomberGame game, SpriteBatch sb) {
+        super(game, sb);
         background = new Texture("menubg.png");
     }
 
-    @Override
     protected void handleInput() {
         if (Gdx.input.justTouched())  {
-            gsm.set(new PlayState(gsm));
+            game.setScreen(new PlayState(game, sb));
         }
     }
 
-    @Override
-    public void update(float dt) {
+    protected void update(float dt) {
         handleInput();
     }
 
     @Override
-    public void render(SpriteBatch sb) {
+    public void render(float delta) {
+        super.render(delta);
+
         sb.begin();
         sb.draw(background, 0, 0, BomberGame.WIDTH, BomberGame.HEIGHT);
         sb.end();

@@ -38,7 +38,7 @@ public class HUD implements Disposable {
         // labels
         Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(),
                                                            Color.WHITE);
-        levelLabel = new Label(String.format("Level: %2d", score), labelStyle);
+        levelLabel = new Label(String.format("Level: %2d", level), labelStyle);
         scoreLabel = new Label(String.format("%3d", score), labelStyle);
 
         // table to organize all the labels

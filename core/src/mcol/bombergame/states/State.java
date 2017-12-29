@@ -44,6 +44,7 @@ public abstract class State implements Screen {
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
+        camera.setToOrtho(false);
     }
 
     @Override

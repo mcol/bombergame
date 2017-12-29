@@ -16,6 +16,9 @@ public class PlayState extends State {
     private static final int SKYSCRAPER_COUNT = 13;
     private static final int MAX_BOMB_COUNT = 3;
 
+    /** Heads-up display. */
+    private final HUD hud;
+
     /** Background texture. */
     private final Texture background;
 
@@ -31,6 +34,7 @@ public class PlayState extends State {
     /** Constructor. */
     public PlayState(BomberGame game, SpriteBatch sb) {
         super(game, sb);
+        hud = new HUD(sb);
         background = new Texture("gamebg.png");
         bomber = new Bomber(0, (int) camera.viewportHeight - 50);
         skyscrapers = new Array<Skyscraper>();
@@ -63,9 +67,12 @@ public class PlayState extends State {
             }
             for (int j = 0; j < bombs.size; j++) {
                 if (ss.collides(bombs.get(j).getBounds())) {
+                    hud.increaseScore(1);
                     bombs.removeIndex(j);
-                    if (ss.isDestroyed())
+                    if (ss.isDestroyed()) {
                         skyscrapers.removeIndex(i);
+                        hud.increaseScore(10);
+                    }
                 }
             }
         }
@@ -97,6 +104,9 @@ public class PlayState extends State {
             sb.draw(bb.getTexture(), bb.getPosition().x, bb.getPosition().y);
         sb.draw(bomber.getTexture(), bomber.getPosition().x, bomber.getPosition().y);
         sb.end();
+
+        // draw the hud
+        hud.render();
     }
 
     @Override

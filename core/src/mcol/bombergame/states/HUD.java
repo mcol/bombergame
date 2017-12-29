@@ -23,17 +23,13 @@ public class HUD implements Disposable {
     /** Label reporting the current score. */
     private final Label scoreLabel;
 
-    /** Current level. */
-    private int level;
-
     /** Current score. */
     private int score;
 
     /** Constructor. */
-    public HUD(SpriteBatch sb) {
+    public HUD(SpriteBatch sb, int level) {
         this.sb = sb;
         this.score = 0;
-        this.level = 1;
 
         // labels
         Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(),
@@ -54,9 +50,8 @@ public class HUD implements Disposable {
         stage.addActor(table);
     }
 
-    /** Increases the current level. */
-    public void increaseLevel() {
-        level++;
+    /** Sets the current level. */
+    public void setLevel(int level) {
         levelLabel.setText(String.format("Level: %2d", level));
     }
 

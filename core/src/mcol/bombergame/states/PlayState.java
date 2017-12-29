@@ -16,6 +16,9 @@ public class PlayState extends State {
     private static final int SKYSCRAPER_COUNT = 13;
     private static final int MAX_BOMB_COUNT = 3;
 
+    /** Current level. */
+    private int level;
+
     /** Heads-up display. */
     private final HUD hud;
 
@@ -34,7 +37,8 @@ public class PlayState extends State {
     /** Constructor. */
     public PlayState(BomberGame game, SpriteBatch sb) {
         super(game, sb);
-        hud = new HUD(sb);
+        level = 1;
+        hud = new HUD(sb, level);
         background = new Texture("gamebg.png");
         bomber = new Bomber(0, (int) camera.viewportHeight - 50);
         skyscrapers = new Array<Skyscraper>();
@@ -86,7 +90,8 @@ public class PlayState extends State {
 
         // level completed
         if (skyscrapers.size == 0) {
-            hud.increaseLevel();
+            level++;
+            hud.setLevel(level);
             createWorld();
         }
 

@@ -16,12 +16,13 @@ public class MenuState extends State {
         background = new Texture("menubg.png");
     }
 
-    protected void handleInput() {
+    private void handleInput() {
         if (Gdx.input.justTouched())  {
             game.setScreen(new PlayState(game, sb));
         }
     }
 
+    @Override
     protected void update(float dt) {
         handleInput();
     }

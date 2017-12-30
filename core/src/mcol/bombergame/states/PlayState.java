@@ -15,10 +15,9 @@ public class PlayState extends State {
 
     /** Maximum number of skyscrapers generated. */
     private static final int MAX_SKYSCRAPER_COUNT = 11;
-    private static final int MAX_BOMB_COUNT = 3;
 
-    /** Current level. */
-    private int level;
+    /** Maximum number of bombs active at the same time. */
+    private static final int MAX_BOMB_COUNT = 3;
 
     /** Heads-up display. */
     private final HUD hud;
@@ -37,6 +36,9 @@ public class PlayState extends State {
 
     /** Number of skyscrapers standing. */
     private int ssCount;
+
+    /** Current level. */
+    private int level;
 
     /** Constructor. */
     public PlayState(BomberGame game, SpriteBatch sb) {
@@ -63,7 +65,7 @@ public class PlayState extends State {
         bombs.clear();
     }
 
-    protected void handleInput() {
+    private void handleInput() {
         if (Gdx.input.justTouched()) {
             if (bombs.size < MAX_BOMB_COUNT)
                 bombs.add(new Bomb(bomber.getPosition()));
@@ -72,6 +74,7 @@ public class PlayState extends State {
             game.setScreen(new MenuState(game, sb));
     }
 
+    @Override
     protected void update(float dt) {
         handleInput();
 

@@ -8,6 +8,7 @@ import mcol.bombergame.gfx.Animation;
 
 public class Bomber {
 
+    /** Speed at the start of the game. */
     private static final int SPEED_START = 80;
 
     /** Increase in speed at each row. */
@@ -15,13 +16,23 @@ public class Bomber {
 
     /** Change in height at each row. */
     private static final int POSITION_CHANGE = -40;
+
+    /** Number of frames in the texture. */
     private static final int FRAME_COUNT = 2;
 
+    /** Image with the animation frames. */
     private final Texture texture;
+
+    /** Animation representing the bomber. */
     private final Animation bomberAnimation;
+
+    /** Current position. */
     private final Vector2 position;
-    private final Vector2 velocity;
+
+    /** Collision bounding box. */
     private final Rectangle bounds;
+
+    /** Current speed. */
     private float xMove;
 
     /** Constructor. */
@@ -29,7 +40,6 @@ public class Bomber {
         texture = new Texture("bomber.png");
         bomberAnimation = new Animation(texture, FRAME_COUNT, 0.5f);
         position = new Vector2(x, y);
-        velocity = new Vector2(0, 0);
         bounds = new Rectangle(x, y, texture.getWidth() / FRAME_COUNT, texture.getHeight());
         xMove = SPEED_START;
     }
@@ -40,6 +50,7 @@ public class Bomber {
         position.y = y;
     }
 
+    /** Moves the bomber to the next row. */
     public void nextRow() {
         position.x = -texture.getWidth() / FRAME_COUNT / 2;
         position.y += POSITION_CHANGE;
@@ -47,11 +58,9 @@ public class Bomber {
     }
 
     public void update(float dt) {
-        velocity.scl(dt);
-        position.add(xMove * dt, velocity.y);
+        position.add(xMove * dt, 0);
         if (position.y < 0)
             position.y = 0;
-        velocity.scl(1 / dt);
         bomberAnimation.update(dt);
         bounds.setPosition(position);
     }

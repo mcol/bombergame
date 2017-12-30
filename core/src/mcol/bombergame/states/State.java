@@ -27,7 +27,6 @@ public abstract class State implements Screen {
         viewport = new FitViewport(BomberGame.WIDTH, BomberGame.HEIGHT, camera);
     }
 
-    protected abstract void handleInput();
     protected abstract void update(float delta);
 
     @Override

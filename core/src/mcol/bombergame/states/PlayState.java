@@ -9,12 +9,12 @@ import mcol.bombergame.BomberGame;
 import mcol.bombergame.assets.Bomb;
 import mcol.bombergame.assets.Bomber;
 import mcol.bombergame.assets.Skyscraper;
+import mcol.bombergame.utils.Utils;
 
 public class PlayState extends State {
 
     /** Maximum number of skyscrapers generated. */
     private static final int MAX_SKYSCRAPER_COUNT = 11;
-    private static final int SKYSCRAPER_GAP = 2;
     private static final int MAX_BOMB_COUNT = 3;
 
     /** Current level. */
@@ -35,6 +35,9 @@ public class PlayState extends State {
     /** Array of bomb objects. */
     private final Array<Bomb> bombs;
 
+    /** Number of skyscrapers standing. */
+    private int ssCount;
+
     /** Constructor. */
     public PlayState(BomberGame game, SpriteBatch sb) {
         super(game, sb);
@@ -44,13 +47,18 @@ public class PlayState extends State {
         bomber = new Bomber(0, (int) camera.viewportHeight - 50);
         skyscrapers = new Array<Skyscraper>();
         bombs = new Array<Bomb>();
-        createWorld();
+        createWorld(level);
     }
 
     /** Initializes the world. */
-    private void createWorld() {
-        for (int i = 0; i < MAX_SKYSCRAPER_COUNT; i++)
-            skyscrapers.add(new Skyscraper(i * (70 + SKYSCRAPER_GAP), 6));
+    private void createWorld(int level) {
+        skyscrapers.clear();
+        ssCount = Math.min(3 + level * 2, MAX_SKYSCRAPER_COUNT);
+        int pos = (int) camera.viewportWidth / ssCount;
+        int max = 1 + 2 * level;
+        for (int i = 0; i < ssCount; i++)
+            skyscrapers.add(new Skyscraper(i * pos,
+                                           Utils.randomInteger(level, max)));
         bomber.setPosition(0, (int) camera.viewportHeight - 50);
         bombs.clear();
     }
@@ -93,7 +101,7 @@ public class PlayState extends State {
         if (skyscrapers.size == 0) {
             level++;
             hud.setLevel(level);
-            createWorld();
+            createWorld(level);
         }
 
         for (int i = 0; i < bombs.size; i++) {

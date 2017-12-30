@@ -29,8 +29,8 @@ public abstract class State implements Screen {
 
     protected abstract void handleInput();
     protected abstract void update(float delta);
-    public abstract void dispose();
 
+    @Override
     public void render(float delta) {
 
         update(delta);
@@ -62,4 +62,7 @@ public abstract class State implements Screen {
     @Override
     public void resume() {
     }
+
+    @Override
+    public abstract void dispose();
 }

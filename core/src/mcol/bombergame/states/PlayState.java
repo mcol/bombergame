@@ -57,9 +57,10 @@ public class PlayState extends State {
         skyscrapers.clear();
         ssCount = Math.min(3 + level * 2, MAX_SKYSCRAPER_COUNT);
         int pos = (int) camera.viewportWidth / ssCount;
+        int gap = ((int) camera.viewportWidth - (ssCount - 1) * pos) / ssCount;
         int max = 1 + 2 * level;
         for (int i = 0; i < ssCount; i++)
-            skyscrapers.add(new Skyscraper(i * pos,
+            skyscrapers.add(new Skyscraper(gap + i * pos,
                                            Utils.randomInteger(level, max)));
         bomber.setPosition(0, (int) camera.viewportHeight - 50);
         bombs.clear();

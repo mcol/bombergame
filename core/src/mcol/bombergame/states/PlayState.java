@@ -12,8 +12,9 @@ import mcol.bombergame.assets.Skyscraper;
 
 public class PlayState extends State {
 
+    /** Maximum number of skyscrapers generated. */
+    private static final int MAX_SKYSCRAPER_COUNT = 11;
     private static final int SKYSCRAPER_GAP = 2;
-    private static final int SKYSCRAPER_COUNT = 13;
     private static final int MAX_BOMB_COUNT = 3;
 
     /** Current level. */
@@ -48,8 +49,8 @@ public class PlayState extends State {
 
     /** Initializes the world. */
     private void createWorld() {
-        for (int i = 0; i < SKYSCRAPER_COUNT; i++)
-            skyscrapers.add(new Skyscraper(i * (Skyscraper.WIDTH + SKYSCRAPER_GAP)));
+        for (int i = 0; i < MAX_SKYSCRAPER_COUNT; i++)
+            skyscrapers.add(new Skyscraper(i * (70 + SKYSCRAPER_GAP), 6));
         bomber.setPosition(0, (int) camera.viewportHeight - 50);
         bombs.clear();
     }
@@ -112,9 +113,11 @@ public class PlayState extends State {
         // draw the game elements
         sb.begin();
         sb.draw(background, camera.position.x - camera.viewportWidth / 2, 0);
+
         for (Skyscraper ss : skyscrapers) {
-            sb.draw(ss.getTexture(), ss.getPosition().x, ss.getPosition().y);
+            ss.render(sb);
         }
+
         for (Bomb bb : bombs)
             sb.draw(bb.getTexture(), bb.getPosition().x, bb.getPosition().y);
         sb.draw(bomber.getTexture(), bomber.getPosition().x, bomber.getPosition().y);

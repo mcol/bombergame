@@ -20,6 +20,9 @@ public class MenuState extends State {
         if (Gdx.input.justTouched())  {
             game.setScreen(new PlayState(game, sb));
         }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            Gdx.app.exit();
+        }
     }
 
     @Override

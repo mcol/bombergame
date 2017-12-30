@@ -9,8 +9,12 @@ import mcol.bombergame.gfx.Animation;
 public class Bomber {
 
     private static final int SPEED_START = 80;
-    private static final int SPEED_CHANGE = 20;
-    private static final int POSITION_CHANGE = -50;
+
+    /** Increase in speed at each row. */
+    private static final int SPEED_CHANGE = 15;
+
+    /** Change in height at each row. */
+    private static final int POSITION_CHANGE = -40;
     private static final int FRAME_COUNT = 2;
 
     private final Texture texture;

@@ -19,6 +19,9 @@ public class PlayState extends State {
     /** Maximum number of bombs active at the same time. */
     private static final int MAX_BOMB_COUNT = 3;
 
+    /** Speed of the background. */
+    private static final int BACKGROUND_SPEED = 2;
+
     /** Heads-up display. */
     private final HUD hud;
 
@@ -40,6 +43,12 @@ public class PlayState extends State {
     /** Current level. */
     private int level;
 
+    /** Starting position of the background. */
+    private final float bgPosition;
+
+    /** Displacement of the background. */
+    private float bgOffset;
+
     /** Constructor. */
     public PlayState(BomberGame game, SpriteBatch sb) {
         super(game, sb);
@@ -49,6 +58,8 @@ public class PlayState extends State {
         bomber = new Bomber(0, (int) camera.viewportHeight - 50);
         skyscrapers = new Array<Skyscraper>();
         bombs = new Array<Bomb>();
+        bgPosition = camera.position.x - camera.viewportWidth / 2;
+        bgOffset = 0;
         createWorld(level);
     }
 
@@ -78,6 +89,11 @@ public class PlayState extends State {
     @Override
     protected void update(float dt) {
         handleInput();
+
+        // background
+        bgOffset += BACKGROUND_SPEED * dt;
+        if (bgOffset > background.getWidth())
+            bgOffset = 0;
 
         bomber.update(dt);
         if (bomber.getPosition().x > camera.viewportWidth)
@@ -124,7 +140,8 @@ public class PlayState extends State {
 
         // draw the game elements
         sb.begin();
-        sb.draw(background, camera.position.x - camera.viewportWidth / 2, 0);
+        sb.draw(background, bgPosition - bgOffset, 0);
+        sb.draw(background, bgPosition + background.getWidth() - bgOffset, 0);
 
         for (Skyscraper ss : skyscrapers) {
             ss.render(sb);

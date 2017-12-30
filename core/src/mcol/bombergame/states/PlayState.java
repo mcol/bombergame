@@ -90,7 +90,7 @@ public class PlayState extends State {
                     hud.increaseScore(1);
                     bombs.removeIndex(j);
                     if (ss.isDestroyed()) {
-                        skyscrapers.removeIndex(i);
+                        ssCount--;
                         hud.increaseScore(10);
                     }
                 }
@@ -98,7 +98,7 @@ public class PlayState extends State {
         }
 
         // level completed
-        if (skyscrapers.size == 0) {
+        if (ssCount == 0) {
             level++;
             hud.setLevel(level);
             createWorld(level);

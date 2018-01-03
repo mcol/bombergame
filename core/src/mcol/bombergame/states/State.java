@@ -29,8 +29,8 @@ public abstract class State implements Screen {
         this.sb = sb;
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false);
         viewport = new FitViewport(BomberGame.WIDTH, BomberGame.HEIGHT, camera);
+        viewport.apply(true);
     }
 
     protected abstract void update(float delta);
@@ -49,7 +49,6 @@ public abstract class State implements Screen {
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
-        camera.setToOrtho(false);
     }
 
     @Override

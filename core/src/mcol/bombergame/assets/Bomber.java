@@ -42,7 +42,7 @@ public class Bomber {
     /** Constructor. */
     public Bomber(int x, int y) {
         texture = new Texture("bomber.png");
-        bomberAnimation = new Animation(texture, ANIMATION_FRAMES, 0.5f);
+        bomberAnimation = new Animation(texture, ANIMATION_FRAMES, 0.5f, 1.0f);
         sprite = bomberAnimation.getCurrentFrame();
         position = new Vector2(x, y);
         bounds = new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());

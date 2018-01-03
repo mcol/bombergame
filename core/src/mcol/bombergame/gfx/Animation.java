@@ -20,12 +20,13 @@ public class Animation {
 
     /** Constructor. */
     public Animation(Texture texture, int frameCount,
-                     float cycleTime) {
+                     float cycleTime, float scale) {
         int frameWidth = texture.getWidth() / frameCount;
         this.frames = new Array<Sprite>();
         for (int i = 0; i < frameCount; i++) {
             Sprite sprite = new Sprite(texture, i * frameWidth, 0,
                                        frameWidth, texture.getHeight());
+            sprite.setSize(frameWidth * scale, texture.getHeight() * scale);
             frames.add(sprite);
         }
         this.frameDuration = cycleTime / frameCount;

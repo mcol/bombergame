@@ -36,7 +36,7 @@ public class Bomb {
     /** Constructor. */
     public Bomb(Vector2 bomberPosition) {
         texture = new Texture("SmallBomb.png");
-        bombAnimation = new Animation(texture, ANIMATION_FRAMES, 0.5f);
+        bombAnimation = new Animation(texture, ANIMATION_FRAMES, 0.5f, 1.0f);
         sprite = bombAnimation.getCurrentFrame();
         position = new Vector2(bomberPosition);
         velocity = new Vector2(0, GRAVITY);

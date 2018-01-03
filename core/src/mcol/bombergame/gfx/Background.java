@@ -3,6 +3,7 @@ package mcol.bombergame.gfx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import mcol.bombergame.utils.Utils;
 
 public class Background {
 
@@ -15,6 +16,9 @@ public class Background {
     /** Width of the background image after scaling. */
     private final float scaledWidth;
 
+    /** Starting horizontal coordinate. */
+    private final float x;
+
     /** Current horizontal displacement of the background. */
     private float offset;
 
@@ -25,6 +29,7 @@ public class Background {
         background.setOrigin(0, 0);
         speed = bgSpeed;
         scaledWidth = background.getWidth() * scale;
+        x = -Utils.randomInteger(0, (int) scaledWidth / 2);
         offset = 0;
     }
 
@@ -36,9 +41,9 @@ public class Background {
 
     public void render(SpriteBatch sb) {
         sb.disableBlending();
-        background.setPosition(-offset, 0);
+        background.setPosition(x - offset, 0);
         background.draw(sb);
-        background.setPosition(-offset + scaledWidth, 0);
+        background.setPosition(x - offset + scaledWidth, 0);
         background.draw(sb);
         sb.enableBlending();
     }

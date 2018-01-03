@@ -18,7 +18,7 @@ public class Bomber {
     private static final int POSITION_CHANGE = -40;
 
     /** Number of frames in the texture. */
-    private static final int FRAME_COUNT = 2;
+    private static final int ANIMATION_FRAMES = 2;
 
     /** Image with the animation frames. */
     private final Texture texture;
@@ -38,9 +38,9 @@ public class Bomber {
     /** Constructor. */
     public Bomber(int x, int y) {
         texture = new Texture("bomber.png");
-        bomberAnimation = new Animation(texture, FRAME_COUNT, 0.5f);
+        bomberAnimation = new Animation(texture, ANIMATION_FRAMES, 0.5f);
         position = new Vector2(x, y);
-        bounds = new Rectangle(x, y, texture.getWidth() / FRAME_COUNT, texture.getHeight());
+        bounds = new Rectangle(x, y, texture.getWidth() / ANIMATION_FRAMES, texture.getHeight());
         xMove = SPEED_START;
     }
 
@@ -52,7 +52,7 @@ public class Bomber {
 
     /** Moves the bomber to the next row. */
     public void nextRow() {
-        position.x = -texture.getWidth() / FRAME_COUNT / 2;
+        position.x = -texture.getWidth() / ANIMATION_FRAMES / 2;
         position.y += POSITION_CHANGE;
         xMove += SPEED_CHANGE;
     }

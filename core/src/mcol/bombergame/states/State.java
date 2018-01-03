@@ -11,11 +11,17 @@ import mcol.bombergame.BomberGame;
 
 public abstract class State implements Screen {
 
-    protected final OrthographicCamera camera;
-    private final Viewport viewport;
-
+    /** Main game object. */
     protected final BomberGame game;
+
+    /** Object to batch the drawing of the game graphics. */
     protected final SpriteBatch sb;
+
+    /** Active camera. */
+    protected final OrthographicCamera camera;
+
+    /** Game viewport. */
+    private final Viewport viewport;
 
     /** Constructor. */
     protected State(BomberGame game, SpriteBatch sb) {

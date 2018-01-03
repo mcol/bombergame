@@ -8,13 +8,25 @@ import mcol.bombergame.gfx.Animation;
 
 public class Bomb {
 
+    /** Amount of gravity. */
     private static final int GRAVITY = -5;
+
+    /** Number of frames in the texture. */
     private static final int ANIMATION_FRAMES = 6;
 
+    /** Image with the animation frames. */
     private final Texture texture;
+
+    /** Animation representing the bomb. */
     private final Animation bombAnimation;
+
+    /** Current position. */
     private final Vector2 position;
+
+    /** Current velocity. */
     private final Vector2 velocity;
+
+    /** Collision bounding box. */
     private final Rectangle bounds;
 
     /** Constructor. */

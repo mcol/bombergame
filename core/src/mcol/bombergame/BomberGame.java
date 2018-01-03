@@ -6,10 +6,16 @@ import mcol.bombergame.states.MenuState;
 
 public class BomberGame extends Game {
 
+    /** Width of the game viewport. */
     public static final int WIDTH = 800;
+
+    /** Height of the game viewport. */
     public static final int HEIGHT = 600;
+
+    /** Name of the game. */
     public static final String TITLE = "Bomber";
 
+    /** Object to batch the drawing of the graphics. */
     private SpriteBatch batch;
 
     @Override

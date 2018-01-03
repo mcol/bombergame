@@ -14,7 +14,10 @@ import mcol.bombergame.BomberGame;
 
 public class HUD implements Disposable {
 
+    /** Object to batch the drawing of the graphics. */
     private final SpriteBatch sb;
+
+    /** Scene graph for the HUD information. */
     private final Stage stage;
 
     /** Label reporting the current level. */

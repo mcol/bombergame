@@ -6,9 +6,15 @@ import com.badlogic.gdx.utils.Array;
 
 public class Animation {
 
+    /** Array of sprites to animate. */
     private final Array<TextureRegion> frames;
+    /** Amount of time spent on each frame. */
     private final float frameDuration;
+
+    /** Amount of time spent on the current frame. */
     private float currentFrameTime;
+
+    /** Index of the current animation frame. */
     private int index;
 
     /** Constructor. */

@@ -1,7 +1,8 @@
 package mcol.bombergame.assets;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import mcol.bombergame.gfx.Animation;
@@ -26,6 +27,9 @@ public class Bomber {
     /** Animation representing the bomber. */
     private final Animation bomberAnimation;
 
+    /** Single frame of the bomber animation. */
+    private final Sprite sprite;
+
     /** Current position. */
     private final Vector2 position;
 
@@ -39,8 +43,9 @@ public class Bomber {
     public Bomber(int x, int y) {
         texture = new Texture("bomber.png");
         bomberAnimation = new Animation(texture, ANIMATION_FRAMES, 0.5f);
+        sprite = bomberAnimation.getCurrentFrame();
         position = new Vector2(x, y);
-        bounds = new Rectangle(x, y, texture.getWidth() / ANIMATION_FRAMES, texture.getHeight());
+        bounds = new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
         xMove = SPEED_START;
     }
 
@@ -52,7 +57,7 @@ public class Bomber {
 
     /** Moves the bomber to the next row. */
     public void nextRow() {
-        position.x = -texture.getWidth() / ANIMATION_FRAMES / 2;
+        position.x = -sprite.getWidth() / 2;
         position.y += POSITION_CHANGE;
         xMove += SPEED_CHANGE;
     }
@@ -62,7 +67,13 @@ public class Bomber {
         if (position.y < 0)
             position.y = 0;
         bomberAnimation.update(dt);
+        sprite.setRegion(bomberAnimation.getCurrentFrame());
+        sprite.setPosition(position.x, position.y);
         bounds.setPosition(position);
+    }
+
+    public void render(SpriteBatch sb) {
+        sprite.draw(sb);
     }
 
     public void dispose() {
@@ -73,10 +84,6 @@ public class Bomber {
 
     public Vector2 getPosition() {
         return position;
-    }
-
-    public TextureRegion getTexture() {
-        return bomberAnimation.getCurrentFrame();
     }
 
     public Rectangle getBounds() {

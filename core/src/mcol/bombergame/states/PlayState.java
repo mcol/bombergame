@@ -148,8 +148,8 @@ public class PlayState extends State {
         }
 
         for (Bomb bb : bombs)
-            sb.draw(bb.getTexture(), bb.getPosition().x, bb.getPosition().y);
-        sb.draw(bomber.getTexture(), bomber.getPosition().x, bomber.getPosition().y);
+            bb.render(sb);
+        bomber.render(sb);
         sb.end();
 
         // draw the hud

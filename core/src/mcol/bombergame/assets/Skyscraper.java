@@ -1,6 +1,7 @@
 package mcol.bombergame.assets;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import mcol.bombergame.gfx.ImageBlock;
@@ -72,14 +73,22 @@ public class Skyscraper {
         return collision;
     }
 
+    /** Extracts the skyscraper block to draw. */
+    private Sprite extractBlock(int block, int height) {
+        Sprite sprite = blocks.getFrame(block, type);
+        sprite.setSize(BLOCK_WIDTH, BLOCK_HEIGHT);
+        sprite.setPosition(position, height * BLOCK_HEIGHT);
+        return sprite;
+    }
+
     public void render(SpriteBatch sb) {
-        sb.draw(blocks.getFrame(everHit ? BLOCK_RUBBLE : BLOCK_TOP, type),
-                position, blockCount * BLOCK_HEIGHT);
+        extractBlock(everHit ? BLOCK_RUBBLE : BLOCK_TOP, blockCount).draw(sb);
+
         for (int i = 1; i < blockCount; i++)
-            sb.draw(blocks.getFrame(BLOCK_BODY, type),
-                    position, i * BLOCK_HEIGHT);
+            extractBlock(BLOCK_BODY, i).draw(sb);
+
         if (blockCount > 0)
-            sb.draw(blocks.getFrame(BLOCK_BASE, type), position, 0);
+            extractBlock(BLOCK_BASE, 0).draw(sb);
     }
 
     public void dispose() {

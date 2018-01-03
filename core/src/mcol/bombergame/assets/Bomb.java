@@ -1,7 +1,8 @@
 package mcol.bombergame.assets;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import mcol.bombergame.gfx.Animation;
@@ -20,6 +21,9 @@ public class Bomb {
     /** Animation representing the bomb. */
     private final Animation bombAnimation;
 
+    /** Single frame of the bomber animation. */
+    private final Sprite sprite;
+
     /** Current position. */
     private final Vector2 position;
 
@@ -33,11 +37,11 @@ public class Bomb {
     public Bomb(Vector2 bomberPosition) {
         texture = new Texture("SmallBomb.png");
         bombAnimation = new Animation(texture, ANIMATION_FRAMES, 0.5f);
+        sprite = bombAnimation.getCurrentFrame();
         position = new Vector2(bomberPosition);
         velocity = new Vector2(0, GRAVITY);
         bounds = new Rectangle(position.x, position.y,
-                               texture.getWidth() / ANIMATION_FRAMES,
-                               texture.getHeight());
+                               sprite.getWidth(), sprite.getHeight());
     }
 
     public void update(float dt) {
@@ -49,15 +53,17 @@ public class Bomb {
         bounds.setPosition(position);
     }
 
+    public void render(SpriteBatch sb) {
+        sprite.setRegion(bombAnimation.getCurrentFrame());
+        sprite.setPosition(position.x, position.y);
+        sprite.draw(sb);
+    }
+
     public void dispose() {
         texture.dispose();
     }
 
     // getters and setters
-
-    public TextureRegion getTexture() {
-        return bombAnimation.getCurrentFrame();
-    }
 
     public Vector2 getPosition() {
         return position;

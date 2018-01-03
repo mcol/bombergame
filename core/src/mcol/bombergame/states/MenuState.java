@@ -2,19 +2,19 @@ package mcol.bombergame.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import mcol.bombergame.BomberGame;
+import mcol.bombergame.gfx.Background;
 
 public class MenuState extends State {
 
-    /** Background texture. */
-    private final Texture background;
+    /** Background image. */
+    private final Background background;
 
     /** Constructor. */
     public MenuState(BomberGame game, SpriteBatch sb) {
         super(game, sb);
-        background = new Texture("menubg.png");
+        background = new Background("menubg.png", 1.0f, 3);
     }
 
     private void handleInput() {
@@ -29,6 +29,7 @@ public class MenuState extends State {
     @Override
     protected void update(float dt) {
         handleInput();
+        background.update(dt);
     }
 
     @Override
@@ -36,7 +37,7 @@ public class MenuState extends State {
         super.render(delta);
 
         sb.begin();
-        sb.draw(background, 0, 0, BomberGame.WIDTH, BomberGame.HEIGHT);
+        background.render(sb);
         sb.end();
     }
 

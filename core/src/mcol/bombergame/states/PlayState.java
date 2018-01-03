@@ -2,13 +2,13 @@ package mcol.bombergame.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import mcol.bombergame.BomberGame;
 import mcol.bombergame.assets.Bomb;
 import mcol.bombergame.assets.Bomber;
 import mcol.bombergame.assets.Skyscraper;
+import mcol.bombergame.gfx.Background;
 import mcol.bombergame.utils.Utils;
 
 public class PlayState extends State {
@@ -19,14 +19,11 @@ public class PlayState extends State {
     /** Maximum number of bombs active at the same time. */
     private static final int MAX_BOMB_COUNT = 3;
 
-    /** Speed of the background. */
-    private static final int BACKGROUND_SPEED = 2;
-
     /** Heads-up display. */
     private final HUD hud;
 
-    /** Background texture. */
-    private final Texture background;
+    /** Background image. */
+    private final Background background;
 
     /** Player object. */
     private final Bomber bomber;
@@ -43,23 +40,15 @@ public class PlayState extends State {
     /** Current level. */
     private int level;
 
-    /** Starting position of the background. */
-    private final float bgPosition;
-
-    /** Displacement of the background. */
-    private float bgOffset;
-
     /** Constructor. */
     public PlayState(BomberGame game, SpriteBatch sb) {
         super(game, sb);
         level = 1;
         hud = new HUD(sb, level);
-        background = new Texture("gamebg.png");
+        background = new Background("gamebg.png", 1.0f, 3);
         bomber = new Bomber(0, (int) camera.viewportHeight - 50);
         skyscrapers = new Array<Skyscraper>();
         bombs = new Array<Bomb>();
-        bgPosition = camera.position.x - camera.viewportWidth / 2;
-        bgOffset = 0;
         createWorld(level);
     }
 
@@ -90,10 +79,7 @@ public class PlayState extends State {
     protected void update(float dt) {
         handleInput();
 
-        // background
-        bgOffset += BACKGROUND_SPEED * dt;
-        if (bgOffset > background.getWidth())
-            bgOffset = 0;
+        background.update(dt);
 
         bomber.update(dt);
         if (bomber.getPosition().x > camera.viewportWidth)
@@ -140,8 +126,8 @@ public class PlayState extends State {
 
         // draw the game elements
         sb.begin();
-        sb.draw(background, bgPosition - bgOffset, 0);
-        sb.draw(background, bgPosition + background.getWidth() - bgOffset, 0);
+
+        background.render(sb);
 
         for (Skyscraper ss : skyscrapers) {
             ss.render(sb);

@@ -16,11 +16,8 @@ public class Background {
     /** Width of the background image after scaling. */
     private final float scaledWidth;
 
-    /** Starting horizontal coordinate. */
-    private final float x;
-
-    /** Current horizontal displacement of the background. */
-    private float offset;
+    /** Current horizontal coordinate. */
+    private float x;
 
     /** Constructor. */
     public Background(String fileName, float scale, float bgSpeed) {
@@ -30,20 +27,17 @@ public class Background {
         speed = bgSpeed;
         scaledWidth = background.getWidth() * scale;
         x = -Utils.randomInteger(0, (int) scaledWidth / 2);
-        offset = 0;
     }
 
     public void update(float delta) {
-        offset += speed * delta;
-        if (offset > scaledWidth)
-            offset = 0;
+        x = (x - speed * delta) % scaledWidth;
     }
 
     public void render(SpriteBatch sb) {
         sb.disableBlending();
-        background.setPosition(x - offset, 0);
+        background.setPosition(x, 0);
         background.draw(sb);
-        background.setPosition(x - offset + scaledWidth, 0);
+        background.setPosition(x + scaledWidth, 0);
         background.draw(sb);
         sb.enableBlending();
     }

@@ -14,7 +14,7 @@ public class MenuState extends State {
     /** Constructor. */
     public MenuState(BomberGame game, SpriteBatch sb) {
         super(game, sb);
-        background = new Background("menubg.png", 1.0f, 3);
+        background = new Background("menubg.png", 0.2f, 0.5f);
     }
 
     private void handleInput() {

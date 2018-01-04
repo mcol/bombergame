@@ -43,6 +43,7 @@ public abstract class State implements Screen {
         // clear the screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        sb.setProjectionMatrix(camera.combined);
     }
 
     /** Resizes the dimension of the viewport. */

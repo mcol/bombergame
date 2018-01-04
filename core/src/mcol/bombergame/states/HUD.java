@@ -53,7 +53,7 @@ public class HUD implements Disposable {
         table.add(scoreLabel).expandX().padTop(10);
 
         // stage
-        Viewport vp = new FitViewport(BomberGame.WIDTH, BomberGame.HEIGHT,
+        Viewport vp = new FitViewport(BomberGame.WIDTH * 5, BomberGame.HEIGHT * 5,
                                       new OrthographicCamera());
         stage = new Stage(vp, sb);
         stage.addActor(table);

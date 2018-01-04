@@ -10,7 +10,7 @@ import mcol.bombergame.gfx.Animation;
 public class Bomb {
 
     /** Amount of gravity. */
-    private static final int GRAVITY = -5;
+    private static final int GRAVITY = -1;
 
     /** Number of frames in the texture. */
     private static final int ANIMATION_FRAMES = 6;
@@ -36,7 +36,7 @@ public class Bomb {
     /** Constructor. */
     public Bomb(Vector2 bomberPosition) {
         texture = new Texture("SmallBomb.png");
-        bombAnimation = new Animation(texture, ANIMATION_FRAMES, 0.5f, 1.0f);
+        bombAnimation = new Animation(texture, ANIMATION_FRAMES, 0.5f, 0.2f);
         sprite = bombAnimation.getCurrentFrame();
         position = new Vector2(bomberPosition);
         velocity = new Vector2(0, GRAVITY);

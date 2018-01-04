@@ -12,11 +12,11 @@ public class Skyscraper {
     /** Number of skyscraper types in the texture. */
     private static final int SKYSCRAPER_TYPES = 10;
 
-    /** Width of each block in pixels. */
-    private static final int BLOCK_WIDTH = 70;
+    /** Width of each block. */
+    private static final int BLOCK_WIDTH = 16;
 
-    /** Height of each block in pixels. */
-    private static final int BLOCK_HEIGHT = 40;
+    /** Height of each block. */
+    private static final int BLOCK_HEIGHT = 8;
 
     /** Blocks in the order they appear in the texture. */
     private static final int BLOCK_RUBBLE = 0;

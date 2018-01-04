@@ -10,13 +10,13 @@ import mcol.bombergame.gfx.Animation;
 public class Bomber {
 
     /** Speed at the start of the game. */
-    private static final int SPEED_START = 80;
+    private static final int SPEED_START = 16;
 
     /** Increase in speed at each row. */
-    private static final int SPEED_CHANGE = 15;
+    private static final int SPEED_CHANGE = 3;
 
     /** Change in height at each row. */
-    private static final int POSITION_CHANGE = -40;
+    private static final int POSITION_CHANGE = -8;
 
     /** Number of frames in the texture. */
     private static final int ANIMATION_FRAMES = 2;
@@ -42,7 +42,7 @@ public class Bomber {
     /** Constructor. */
     public Bomber(int x, int y) {
         texture = new Texture("bomber.png");
-        bomberAnimation = new Animation(texture, ANIMATION_FRAMES, 0.5f, 1.0f);
+        bomberAnimation = new Animation(texture, ANIMATION_FRAMES, 0.5f, 0.2f);
         sprite = bomberAnimation.getCurrentFrame();
         position = new Vector2(x, y);
         bounds = new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());

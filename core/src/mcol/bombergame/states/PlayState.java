@@ -45,8 +45,8 @@ public class PlayState extends State {
         super(game, sb);
         level = 1;
         hud = new HUD(sb, level);
-        background = new Background("gamebg.png", 1.0f, 3);
-        bomber = new Bomber(0, (int) camera.viewportHeight - 50);
+        background = new Background("gamebg.png", 0.2f, 0.5f);
+        bomber = new Bomber(0, 0);
         skyscrapers = new Array<Skyscraper>();
         bombs = new Array<Bomb>();
         createWorld(level);
@@ -62,7 +62,7 @@ public class PlayState extends State {
         for (int i = 0; i < ssCount; i++)
             skyscrapers.add(new Skyscraper(gap + i * pos,
                                            Utils.randomInteger(level, max)));
-        bomber.setPosition(0, (int) camera.viewportHeight - 50);
+        bomber.setPosition(0, (int) camera.viewportHeight - 10);
         bombs.clear();
     }
 

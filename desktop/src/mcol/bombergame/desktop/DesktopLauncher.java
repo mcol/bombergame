@@ -7,8 +7,8 @@ import mcol.bombergame.BomberGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = BomberGame.WIDTH;
-		config.height = BomberGame.HEIGHT;
+		config.width = 1280;
+		config.height = 720;
 		config.title = BomberGame.TITLE;
 		new LwjglApplication(new BomberGame(), config);
 	}

@@ -2,7 +2,6 @@ package mcol.bombergame.states;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -11,6 +10,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import mcol.bombergame.BomberGame;
+import mcol.bombergame.gfx.Font;
 
 public class HUD implements Disposable {
 
@@ -35,7 +35,7 @@ public class HUD implements Disposable {
         this.score = 0;
 
         // labels
-        Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(),
+        Label.LabelStyle labelStyle = new Label.LabelStyle(new Font(26).get(),
                                                            Color.WHITE);
         levelLabel = new Label(String.format("Level: %2d", level), labelStyle);
         scoreLabel = new Label(String.format("%3d", score), labelStyle);

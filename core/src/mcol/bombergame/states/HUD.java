@@ -14,6 +14,12 @@ import mcol.bombergame.gfx.Font;
 
 public class HUD implements Disposable {
 
+    /** Format string for the level. */
+    private static final String levelFormat = "Level: %2d";
+
+    /** Format string for the score. */
+    private static final String scoreFormat = "Score: %3d";
+
     /** Object to batch the drawing of the graphics. */
     private final SpriteBatch sb;
 
@@ -37,8 +43,8 @@ public class HUD implements Disposable {
         // labels
         Label.LabelStyle labelStyle = new Label.LabelStyle(new Font(26).get(),
                                                            Color.WHITE);
-        levelLabel = new Label(String.format("Level: %2d", level), labelStyle);
-        scoreLabel = new Label(String.format("%3d", score), labelStyle);
+        levelLabel = new Label(String.format(levelFormat, level), labelStyle);
+        scoreLabel = new Label(String.format(scoreFormat, score), labelStyle);
 
         // table to organize all the labels
         Table table = new Table().top();
@@ -55,13 +61,13 @@ public class HUD implements Disposable {
 
     /** Sets the current level. */
     public void setLevel(int level) {
-        levelLabel.setText(String.format("Level: %2d", level));
+        levelLabel.setText(String.format(levelFormat, level));
     }
 
     /** Increases the current score. */
     public void increaseScore(int points) {
         score += points;
-        scoreLabel.setText(String.format("%3d", score));
+        scoreLabel.setText(String.format(scoreFormat, score));
     }
 
     public void render() {

@@ -14,7 +14,7 @@ import mcol.bombergame.utils.Utils;
 public class PlayState extends State {
 
     /** Maximum number of skyscrapers generated. */
-    private static final int MAX_SKYSCRAPER_COUNT = 11;
+    private static final int MAX_SKYSCRAPER_COUNT = 21;
 
     /** Maximum number of bombs active at the same time. */
     private static final int MAX_BOMB_COUNT = 3;

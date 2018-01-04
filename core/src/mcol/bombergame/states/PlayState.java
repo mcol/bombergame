@@ -19,6 +19,9 @@ public class PlayState extends State {
     /** Maximum number of bombs active at the same time. */
     private static final int MAX_BOMB_COUNT = 3;
 
+    /** Speed of the bomber at the start of the game. */
+    private static final int BOMBER_START_SPEED = 10;
+
     /** Heads-up display. */
     private final HUD hud;
 
@@ -46,7 +49,7 @@ public class PlayState extends State {
         level = 1;
         hud = new HUD(sb, level);
         background = new Background("gamebg.png", 0.2f, 0.5f);
-        bomber = new Bomber(0, 0);
+        bomber = new Bomber(0, 0, BOMBER_START_SPEED);
         skyscrapers = new Array<Skyscraper>();
         bombs = new Array<Bomb>();
         createWorld(level);
@@ -63,6 +66,7 @@ public class PlayState extends State {
             skyscrapers.add(new Skyscraper(gap + i * pos,
                                            Utils.randomInteger(level, max)));
         bomber.setPosition(0, (int) camera.viewportHeight - 10);
+        bomber.setSpeed(BOMBER_START_SPEED + level * 5);
         bombs.clear();
     }
 

@@ -9,9 +9,6 @@ import mcol.bombergame.gfx.Animation;
 
 public class Bomber {
 
-    /** Speed at the start of the game. */
-    private static final int SPEED_START = 16;
-
     /** Increase in speed at each row. */
     private static final int SPEED_CHANGE = 3;
 
@@ -40,19 +37,13 @@ public class Bomber {
     private float xMove;
 
     /** Constructor. */
-    public Bomber(int x, int y) {
+    public Bomber(int x, int y, float speed) {
         texture = new Texture("bomber.png");
         bomberAnimation = new Animation(texture, ANIMATION_FRAMES, 0.5f, 0.2f);
         sprite = bomberAnimation.getCurrentFrame();
         position = new Vector2(x, y);
         bounds = new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
-        xMove = SPEED_START;
-    }
-
-    /** Sets the the bomber coordinates. */
-    public void setPosition(int x, int y) {
-        position.x = x;
-        position.y = y;
+        xMove = speed;
     }
 
     /** Moves the bomber to the next row. */
@@ -86,7 +77,18 @@ public class Bomber {
         return position;
     }
 
+    /** Sets the the bomber coordinates. */
+    public void setPosition(int x, int y) {
+        position.x = x;
+        position.y = y;
+    }
+
     public Rectangle getBounds() {
         return bounds;
+    }
+
+    /** Sets the bomber speed. */
+    public void setSpeed(float speed) {
+        xMove = speed;
     }
 }

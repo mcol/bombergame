@@ -18,6 +18,9 @@ public class Animation {
     /** Index of the current animation frame. */
     private int index;
 
+    /** Whether the animation has played at least once. */
+    private boolean playedOnce;
+
     /** Constructor. */
     public Animation(Texture texture, int frameCount,
                      float cycleTime, float scale) {
@@ -32,6 +35,7 @@ public class Animation {
         this.frameDuration = cycleTime / frameCount;
         this.currentFrameTime = 0;
         this.index = 0;
+        this.playedOnce = false;
     }
 
     public void update(float dt) {
@@ -40,11 +44,18 @@ public class Animation {
             index++;
             currentFrameTime = 0;
         }
-        if (index >= frames.size)
+        if (index >= frames.size) {
             index = 0;
+            playedOnce = true;
+        }
     }
 
     public Sprite getCurrentFrame() {
         return frames.get(index);
+    }
+
+    /** Returns whether the animation has played at least once. */
+    public boolean hasPlayedOnce() {
+        return playedOnce;
     }
 }

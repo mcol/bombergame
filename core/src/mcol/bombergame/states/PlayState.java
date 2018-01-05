@@ -3,11 +3,13 @@ package mcol.bombergame.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import mcol.bombergame.BomberGame;
 import mcol.bombergame.assets.Assets;
 import mcol.bombergame.assets.Bomb;
 import mcol.bombergame.assets.Bomber;
+import mcol.bombergame.assets.Explosion;
 import mcol.bombergame.assets.Skyscraper;
 import mcol.bombergame.gfx.Background;
 import mcol.bombergame.utils.Utils;
@@ -41,6 +43,9 @@ public class PlayState extends State {
     /** Array of bomb objects. */
     private final Array<Bomb> bombs;
 
+    /** Array of explosion objects. */
+    private final Array<Explosion> explosions;
+
     /** Width of a skyscraper block. */
     private final int ssWidth;
 
@@ -68,6 +73,7 @@ public class PlayState extends State {
         bomber = new Bomber(0, 0, BOMBER_START_SPEED);
         skyscrapers = new Array<Skyscraper>();
         bombs = new Array<Bomb>();
+        explosions = new Array<Explosion>();
         ssWidth = 10;
         crashed = false;
         timeSinceCrash = 0;
@@ -114,10 +120,16 @@ public class PlayState extends State {
         for (int i = 0; i < skyscrapers.size; i++) {
             Skyscraper ss = skyscrapers.get(i);
             if (ss.collides(bomber.getBounds())) {
+                Vector2 position = bomber.getPosition();
+                float adj = bomber.getBounds().width;
+                explosions.add(new Explosion(position.x + adj, position.y));
                 crashed = true;
             }
             for (int j = 0; j < bombs.size; j++) {
                 if (ss.collides(bombs.get(j).getBounds())) {
+                    Vector2 position = bombs.get(j).getPosition();
+                    float adj = ssWidth * 6 / 10;
+                    explosions.add(new Explosion(position.x, position.y - adj));
                     hud.increaseScore(1);
                     bombs.removeIndex(j);
                     if (ss.isDestroyed()) {
@@ -129,7 +141,7 @@ public class PlayState extends State {
         }
 
         // level completed
-        if (ssCount == 0) {
+        if (ssCount == 0 && explosions.size == 0) {
             hud.increaseScore(bonus * level);
             level++;
             hud.setLevel(level);
@@ -142,6 +154,13 @@ public class PlayState extends State {
             if (bb.getPosition().y <= -1000) {
                 bombs.removeIndex(i);
             }
+        }
+
+        for (int i = 0; i < explosions.size; i++) {
+            Explosion ee = explosions.get(i);
+            ee.update(dt);
+            if (ee.shouldRemove())
+                explosions.removeIndex(i);
         }
 
         if (crashed) {
@@ -169,6 +188,9 @@ public class PlayState extends State {
 
         for (Bomb bb : bombs)
             bb.render(sb);
+
+        for (Explosion ee : explosions)
+            ee.render(sb);
 
         if (!crashed)
             bomber.render(sb);

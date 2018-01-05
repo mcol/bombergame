@@ -23,6 +23,12 @@ public class PlayState extends State {
     /** Speed of the bomber at the start of the game. */
     private static final int BOMBER_START_SPEED = 10;
 
+    /** Value of the bonus at the start of each level. */
+    private static final int LEVEL_BONUS_START = 60;
+
+    /** Drop in bonus at each row. */
+    private static final int LEVEL_BONUS_DROP = 5;
+
     /** Heads-up display. */
     private final HUD hud;
 
@@ -40,6 +46,9 @@ public class PlayState extends State {
 
     /** Current level. */
     private int level;
+
+    /** Bonus awarded at each level. */
+    private int bonus;
 
     /** Constructor. */
     public PlayState(BomberGame game, SpriteBatch sb) {
@@ -66,6 +75,7 @@ public class PlayState extends State {
         bomber.setPosition(0, (int) camera.viewportHeight - 10);
         bomber.setSpeed(BOMBER_START_SPEED + level * 5);
         bombs.clear();
+        bonus = LEVEL_BONUS_START;
     }
 
     private void handleInput() {
@@ -84,8 +94,10 @@ public class PlayState extends State {
         background.update(dt);
 
         bomber.update(dt);
-        if (bomber.getPosition().x > camera.viewportWidth)
+        if (bomber.getPosition().x > camera.viewportWidth) {
             bomber.nextRow();
+            bonus -= LEVEL_BONUS_DROP;
+        }
 
         for (int i = 0; i < skyscrapers.size; i++) {
             Skyscraper ss = skyscrapers.get(i);
@@ -107,6 +119,7 @@ public class PlayState extends State {
 
         // level completed
         if (ssCount == 0) {
+            hud.increaseScore(bonus * level);
             level++;
             hud.setLevel(level);
             createWorld(level);

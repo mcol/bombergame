@@ -70,8 +70,8 @@ public class PlayState extends State {
     private void createWorld(int level) {
         skyscrapers.clear();
         ssCount = Math.min(3 + level * 2, MAX_SKYSCRAPER_COUNT);
-        int pos = (int) camera.viewportWidth / ssCount;
-        int gap = ((int) camera.viewportWidth - (ssCount - 1) * pos) / ssCount;
+        float gap = (camera.viewportWidth - ssCount * ssWidth) / (ssCount + 1);
+        float pos = gap + ssWidth;
         int max = 1 + 2 * level;
         for (int i = 0; i < ssCount; i++)
             skyscrapers.add(new Skyscraper(gap + i * pos, ssWidth,

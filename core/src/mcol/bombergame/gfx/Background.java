@@ -20,8 +20,8 @@ public class Background {
     private float x;
 
     /** Constructor. */
-    public Background(String fileName, float scale, float bgSpeed) {
-        background = new Sprite(new Texture(fileName));
+    public Background(Texture texture, float scale, float bgSpeed) {
+        background = new Sprite(texture);
         background.setScale(scale);
         background.setOrigin(0, 0);
         speed = bgSpeed;
@@ -40,9 +40,5 @@ public class Background {
         background.setPosition(x + scaledWidth, 0);
         background.draw(sb);
         sb.enableBlending();
-    }
-
-    public void dispose() {
-        background.getTexture().dispose();
     }
 }

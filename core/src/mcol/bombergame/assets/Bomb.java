@@ -1,6 +1,5 @@
 package mcol.bombergame.assets;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -14,9 +13,6 @@ public class Bomb {
 
     /** Number of frames in the texture. */
     private static final int ANIMATION_FRAMES = 6;
-
-    /** Image with the animation frames. */
-    private final Texture texture;
 
     /** Animation representing the bomb. */
     private final Animation bombAnimation;
@@ -35,8 +31,8 @@ public class Bomb {
 
     /** Constructor. */
     public Bomb(Vector2 bomberPosition) {
-        texture = new Texture("SmallBomb.png");
-        bombAnimation = new Animation(texture, ANIMATION_FRAMES, 0.5f, 0.15f);
+        bombAnimation = new Animation(Assets.bombTexture,
+                                      ANIMATION_FRAMES, 0.5f, 0.15f);
         sprite = bombAnimation.getCurrentFrame();
         position = new Vector2(bomberPosition);
         velocity = new Vector2(0, GRAVITY);
@@ -47,7 +43,7 @@ public class Bomb {
     public void update(float dt) {
         velocity.add(0, GRAVITY);
         position.add(0, velocity.y * dt);
-        if (position.y < -texture.getHeight())
+        if (position.y < -sprite.getHeight())
             position.y = -1000;
         bombAnimation.update(dt);
         bounds.setPosition(position);
@@ -57,10 +53,6 @@ public class Bomb {
         sprite.setRegion(bombAnimation.getCurrentFrame());
         sprite.setPosition(position.x, position.y);
         sprite.draw(sb);
-    }
-
-    public void dispose() {
-        texture.dispose();
     }
 
     // getters and setters

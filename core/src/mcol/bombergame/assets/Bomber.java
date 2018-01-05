@@ -1,6 +1,5 @@
 package mcol.bombergame.assets;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -17,9 +16,6 @@ public class Bomber {
 
     /** Number of frames in the texture. */
     private static final int ANIMATION_FRAMES = 2;
-
-    /** Image with the animation frames. */
-    private final Texture texture;
 
     /** Animation representing the bomber. */
     private final Animation bomberAnimation;
@@ -38,8 +34,8 @@ public class Bomber {
 
     /** Constructor. */
     public Bomber(int x, int y, float speed) {
-        texture = new Texture("bomber.png");
-        bomberAnimation = new Animation(texture, ANIMATION_FRAMES, 0.5f, 0.15f);
+        bomberAnimation = new Animation(Assets.bomberTexture,
+                                        ANIMATION_FRAMES, 0.5f, 0.15f);
         sprite = bomberAnimation.getCurrentFrame();
         position = new Vector2(x, y);
         bounds = new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
@@ -65,10 +61,6 @@ public class Bomber {
 
     public void render(SpriteBatch sb) {
         sprite.draw(sb);
-    }
-
-    public void dispose() {
-        texture.dispose();
     }
 
     // getters and setters

@@ -1,6 +1,5 @@
 package mcol.bombergame.assets;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -23,9 +22,6 @@ public class Skyscraper {
     private static final int BLOCK_TOP = 1;
     private static final int BLOCK_BODY = 2;
     private static final int BLOCK_BASE = 3;
-
-    /** Image with all skyscraper blocks. */
-    private static final Texture texture = new Texture("skyscraper.png");
 
     /** Skyscraper blocks. */
     private final ImageBlock blocks;
@@ -50,7 +46,7 @@ public class Skyscraper {
 
     /** Constructor. */
     public Skyscraper(float x, int height) {
-        blocks = new ImageBlock(texture, 4, SKYSCRAPER_TYPES);
+        blocks = new ImageBlock(Assets.skyscraperTexture, 4, SKYSCRAPER_TYPES);
         position = x;
         bounds = new Rectangle(x, 0, BLOCK_WIDTH, (height + 1) * BLOCK_HEIGHT);
         type = Utils.randomInteger(0, SKYSCRAPER_TYPES - 1);
@@ -89,10 +85,6 @@ public class Skyscraper {
 
         if (blockCount > 0)
             extractBlock(BLOCK_BASE, 0).draw(sb);
-    }
-
-    public void dispose() {
-        texture.dispose();
     }
 
     /** Returns whether the skyscraper has been destroyed. */

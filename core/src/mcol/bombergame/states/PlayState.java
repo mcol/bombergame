@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import mcol.bombergame.BomberGame;
+import mcol.bombergame.assets.Assets;
 import mcol.bombergame.assets.Bomb;
 import mcol.bombergame.assets.Bomber;
 import mcol.bombergame.assets.Skyscraper;
@@ -45,7 +46,7 @@ public class PlayState extends State {
         super(game, sb);
         level = 1;
         hud = new HUD(sb, level);
-        background = new Background("gamebg.png", 0.2f, 0.5f);
+        background = new Background(Assets.gamebg, 0.2f, 0.5f);
         bomber = new Bomber(0, 0, BOMBER_START_SPEED);
         skyscrapers = new Array<Skyscraper>();
         bombs = new Array<Bomb>();
@@ -116,7 +117,6 @@ public class PlayState extends State {
             bb.update(dt);
             if (bb.getPosition().y <= -1000) {
                 bombs.removeIndex(i);
-                bb.dispose();
             }
         }
     }
@@ -141,15 +141,5 @@ public class PlayState extends State {
 
         // draw the hud
         hud.render();
-    }
-
-    @Override
-    public void dispose() {
-        background.dispose();
-        bomber.dispose();
-        for (Skyscraper ss : skyscrapers)
-            ss.dispose();
-        for (Bomb bb : bombs)
-            bb.dispose();
     }
 }

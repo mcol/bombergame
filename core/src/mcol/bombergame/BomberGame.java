@@ -2,6 +2,7 @@ package mcol.bombergame;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import mcol.bombergame.assets.Assets;
 import mcol.bombergame.states.MenuState;
 
 public class BomberGame extends Game {
@@ -18,14 +19,20 @@ public class BomberGame extends Game {
     /** Object to batch the drawing of the graphics. */
     private SpriteBatch batch;
 
+    /** Asset manager. */
+    private Assets assets;
+
     @Override
     public void create() {
         batch = new SpriteBatch();
+        assets = new Assets();
+        assets.init();
         setScreen(new MenuState(this, batch));
     }
 
     @Override
     public void dispose() {
         batch.dispose();
+        assets.dispose();
     }
 }

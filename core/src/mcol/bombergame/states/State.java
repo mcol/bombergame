@@ -73,5 +73,6 @@ public abstract class State implements Screen {
     }
 
     @Override
-    public abstract void dispose();
+    public void dispose() {
+    }
 }

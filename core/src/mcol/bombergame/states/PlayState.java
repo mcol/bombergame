@@ -41,6 +41,9 @@ public class PlayState extends State {
     /** Array of bomb objects. */
     private final Array<Bomb> bombs;
 
+    /** Width of a skyscraper block. */
+    private final int ssWidth;
+
     /** Number of skyscrapers standing. */
     private int ssCount;
 
@@ -59,6 +62,7 @@ public class PlayState extends State {
         bomber = new Bomber(0, 0, BOMBER_START_SPEED);
         skyscrapers = new Array<Skyscraper>();
         bombs = new Array<Bomb>();
+        ssWidth = 10;
         createWorld(level);
     }
 
@@ -70,7 +74,7 @@ public class PlayState extends State {
         int gap = ((int) camera.viewportWidth - (ssCount - 1) * pos) / ssCount;
         int max = 1 + 2 * level;
         for (int i = 0; i < ssCount; i++)
-            skyscrapers.add(new Skyscraper(gap + i * pos,
+            skyscrapers.add(new Skyscraper(gap + i * pos, ssWidth,
                                            Utils.randomInteger(level, max)));
         bomber.setPosition(0, (int) camera.viewportHeight - 10);
         bomber.setSpeed(BOMBER_START_SPEED + level * 5);

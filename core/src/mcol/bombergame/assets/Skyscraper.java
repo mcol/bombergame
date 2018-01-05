@@ -11,12 +11,6 @@ public class Skyscraper {
     /** Number of skyscraper types in the texture. */
     private static final int SKYSCRAPER_TYPES = 10;
 
-    /** Width of each block. */
-    private static final int BLOCK_WIDTH = 10;
-
-    /** Height of each block. */
-    private static final int BLOCK_HEIGHT = 6;
-
     /** Blocks in the order they appear in the texture. */
     private static final int BLOCK_RUBBLE = 0;
     private static final int BLOCK_TOP = 1;
@@ -28,6 +22,12 @@ public class Skyscraper {
 
     /** Horizontal coordinate of the skyscraper. */
     private final float position;
+
+    /** Width of each block. */
+    private final int blockWidth;
+
+    /** Height of each block. */
+    private final int blockHeight;
 
     /** Collision bounding box. */
     private final Rectangle bounds;
@@ -45,10 +45,12 @@ public class Skyscraper {
     private boolean destroyed;
 
     /** Constructor. */
-    public Skyscraper(float x, int height) {
+    public Skyscraper(float x, int width, int height) {
         blocks = new ImageBlock(Assets.skyscraperTexture, 4, SKYSCRAPER_TYPES);
         position = x;
-        bounds = new Rectangle(x, 0, BLOCK_WIDTH, (height + 1) * BLOCK_HEIGHT);
+        blockWidth = width;
+        blockHeight = width * 6 / 10;
+        bounds = new Rectangle(x, 0, blockWidth, (height + 1) * blockHeight);
         type = Utils.randomInteger(0, SKYSCRAPER_TYPES - 1);
         blockCount = height;
         everHit = false;
@@ -62,7 +64,7 @@ public class Skyscraper {
             if (everHit)
                 blockCount -= 1;
             everHit = true;
-            bounds.height -= BLOCK_HEIGHT;
+            bounds.height -= blockHeight;
             if (blockCount == 0)
                 destroyed = true;
         }
@@ -72,8 +74,8 @@ public class Skyscraper {
     /** Extracts the skyscraper block to draw. */
     private Sprite extractBlock(int block, int height) {
         Sprite sprite = blocks.getFrame(block, type);
-        sprite.setSize(BLOCK_WIDTH, BLOCK_HEIGHT);
-        sprite.setPosition(position, height * BLOCK_HEIGHT);
+        sprite.setSize(blockWidth, blockHeight);
+        sprite.setPosition(position, height * blockHeight);
         return sprite;
     }
 

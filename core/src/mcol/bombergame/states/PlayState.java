@@ -47,6 +47,12 @@ public class PlayState extends State {
     /** Number of skyscrapers standing. */
     private int ssCount;
 
+    /** Whether the bomber has collided with a skyscraper. */
+    private boolean crashed;
+
+    /** Amount of time passed since the crash. */
+    private float timeSinceCrash;
+
     /** Current level. */
     private int level;
 
@@ -63,6 +69,8 @@ public class PlayState extends State {
         skyscrapers = new Array<Skyscraper>();
         bombs = new Array<Bomb>();
         ssWidth = 10;
+        crashed = false;
+        timeSinceCrash = 0;
         createWorld(level);
     }
 
@@ -106,8 +114,7 @@ public class PlayState extends State {
         for (int i = 0; i < skyscrapers.size; i++) {
             Skyscraper ss = skyscrapers.get(i);
             if (ss.collides(bomber.getBounds())) {
-                game.setScreen(new MenuState(game, sb));
-                return;
+                crashed = true;
             }
             for (int j = 0; j < bombs.size; j++) {
                 if (ss.collides(bombs.get(j).getBounds())) {
@@ -136,6 +143,15 @@ public class PlayState extends State {
                 bombs.removeIndex(i);
             }
         }
+
+        if (crashed) {
+            bomber.setPosition(0, 100);
+            timeSinceCrash += dt;
+            if (timeSinceCrash > 1) {
+                game.setScreen(new MenuState(game, sb));
+                return;
+            }
+        }
     }
 
     @Override
@@ -153,7 +169,10 @@ public class PlayState extends State {
 
         for (Bomb bb : bombs)
             bb.render(sb);
-        bomber.render(sb);
+
+        if (!crashed)
+            bomber.render(sb);
+
         sb.end();
 
         // draw the hud

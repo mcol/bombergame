@@ -25,9 +25,6 @@ public class PlayState extends State {
     /** Heads-up display. */
     private final HUD hud;
 
-    /** Background image. */
-    private final Background background;
-
     /** Player object. */
     private final Bomber bomber;
 

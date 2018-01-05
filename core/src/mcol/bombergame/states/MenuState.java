@@ -8,9 +8,6 @@ import mcol.bombergame.gfx.Background;
 
 public class MenuState extends State {
 
-    /** Background image. */
-    private final Background background;
-
     /** Constructor. */
     public MenuState(BomberGame game, SpriteBatch sb) {
         super(game, sb);

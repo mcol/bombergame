@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import mcol.bombergame.BomberGame;
+import mcol.bombergame.gfx.Background;
 
 public abstract class State implements Screen {
 
@@ -22,6 +23,9 @@ public abstract class State implements Screen {
 
     /** Game viewport. */
     private final Viewport viewport;
+
+    /** Background image. */
+    protected Background background;
 
     /** Constructor. */
     protected State(BomberGame game, SpriteBatch sb) {

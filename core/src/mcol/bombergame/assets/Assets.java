@@ -25,10 +25,16 @@ public class Assets {
         assets.update();
     }
 
-    /** Ensures that all assets have been loaded. */
-    public void init() {
-        assets.finishLoading();
+    /** Loads the first background image. */
+    public void getBackgroundImage() {
+        while (!assets.isLoaded("menubg.png"))
+            assets.update();
         menubg = assets.get("menubg.png", Texture.class);
+    }
+
+    /** Ensures that all assets have been loaded. */
+    public void finishLoading() {
+        assets.finishLoading();
         gamebg = assets.get("gamebg.png", Texture.class);
         bomberTexture = assets.get("bomber.png", Texture.class);
         bombTexture = assets.get("SmallBomb.png", Texture.class);

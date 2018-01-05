@@ -26,8 +26,9 @@ public class BomberGame extends Game {
     public void create() {
         batch = new SpriteBatch();
         assets = new Assets();
-        assets.init();
+        assets.getBackgroundImage();
         setScreen(new MenuState(this, batch));
+        assets.finishLoading();
     }
 
     @Override

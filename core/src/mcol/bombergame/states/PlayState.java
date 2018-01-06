@@ -122,8 +122,8 @@ public class PlayState extends State {
 
         // coordinate of the right-most moving entity
         float xMax = bomber.getX();
-        if (bombs.size > 0)
-            xMax = Math.max(xMax, bombs.peek().getX());
+        for (Bomb bb : bombs)
+            xMax = Math.max(xMax, bb.getX());
 
         // check for collisions with skyscrapers
         for (int i = 0; i < skyscrapers.size; i++) {

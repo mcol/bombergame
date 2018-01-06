@@ -89,6 +89,12 @@ public class Skyscraper {
             extractBlock(BLOCK_BASE, 0).draw(sb);
     }
 
+    // getters and setters
+
+    public float getX() {
+        return position;
+    }
+
     /** Returns whether the skyscraper has been destroyed. */
     public boolean isDestroyed() {
         return destroyed;

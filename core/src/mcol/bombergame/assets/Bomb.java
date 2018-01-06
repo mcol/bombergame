@@ -61,6 +61,10 @@ public class Bomb {
         return position;
     }
 
+    public float getX() {
+        return position.x;
+    }
+
     public Rectangle getBounds() {
         return bounds;
     }

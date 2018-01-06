@@ -75,6 +75,14 @@ public class Bomber {
         position.y = y;
     }
 
+    public float getX() {
+        return position.x;
+    }
+
+    public float getY() {
+        return position.y;
+    }
+
     public Rectangle getBounds() {
         return bounds;
     }

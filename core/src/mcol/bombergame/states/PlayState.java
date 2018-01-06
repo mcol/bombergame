@@ -19,9 +19,6 @@ public class PlayState extends State {
     /** Maximum number of skyscrapers generated. */
     private static final int MAX_SKYSCRAPER_COUNT = 21;
 
-    /** Maximum number of bombs active at the same time. */
-    private static final int MAX_BOMB_COUNT = 3;
-
     /** Speed of the bomber at the start of the game. */
     private static final int BOMBER_START_SPEED = 10;
 
@@ -52,6 +49,9 @@ public class PlayState extends State {
     /** Number of skyscrapers standing. */
     private int ssCount;
 
+    /** Maximum number of bombs active at the same time. */
+    private int maxBombs;
+
     /** Whether the bomber has collided with a skyscraper. */
     private boolean crashed;
 
@@ -75,6 +75,7 @@ public class PlayState extends State {
         bombs = new Array<Bomb>();
         explosions = new Array<Explosion>();
         ssWidth = 10;
+        maxBombs = 3;
         crashed = false;
         timeSinceCrash = 0;
         createWorld(level);
@@ -93,12 +94,14 @@ public class PlayState extends State {
         bomber.setPosition(0, (int) camera.viewportHeight - 10);
         bomber.setSpeed(BOMBER_START_SPEED + level * 5);
         bombs.clear();
+        if (level > 1 && level % 3 == 1)
+            maxBombs++;
         bonus = LEVEL_BONUS_START;
     }
 
     private void handleInput() {
         if (Gdx.input.justTouched()) {
-            if (bombs.size < MAX_BOMB_COUNT)
+            if (bombs.size < maxBombs)
                 bombs.add(new Bomb(bomber.getPosition()));
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))

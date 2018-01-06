@@ -168,6 +168,7 @@ public class PlayState extends State {
 
         if (crashed) {
             bomber.setPosition(0, 100);
+            maxBombs = 0;
             timeSinceCrash += dt;
             if (timeSinceCrash > 1) {
                 game.setScreen(new MenuState(game, sb));

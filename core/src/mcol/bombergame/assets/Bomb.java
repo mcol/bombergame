@@ -40,6 +40,11 @@ public class Bomb {
                                sprite.getWidth(), sprite.getHeight());
     }
 
+    /** Returns whether the bomb should be removed. */
+    public boolean shouldRemove() {
+        return position.y < -bounds.height;
+    }
+
     public void update(float dt) {
         velocity.add(0, GRAVITY);
         position.add(0, velocity.y * dt);

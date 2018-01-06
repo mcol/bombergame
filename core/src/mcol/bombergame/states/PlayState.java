@@ -169,9 +169,8 @@ public class PlayState extends State {
         for (int i = 0; i < bombs.size; i++) {
             Bomb bb = bombs.get(i);
             bb.update(dt);
-            if (bb.getPosition().y <= -1000) {
+            if (bb.shouldRemove())
                 bombs.removeIndex(i);
-            }
         }
 
         for (int i = 0; i < explosions.size; i++) {

@@ -32,19 +32,15 @@ public class HUD implements Disposable {
     /** Label reporting the current score. */
     private final Label scoreLabel;
 
-    /** Current score. */
-    private int score;
-
     /** Constructor. */
     public HUD(SpriteBatch sb) {
         this.sb = sb;
-        this.score = 0;
 
         // labels
         Label.LabelStyle labelStyle = new Label.LabelStyle(new Font(26).get(),
                                                            Color.WHITE);
         levelLabel = new Label(String.format(levelFormat, 1), labelStyle);
-        scoreLabel = new Label(String.format(scoreFormat, score), labelStyle);
+        scoreLabel = new Label(String.format(scoreFormat, 0), labelStyle);
 
         // table to organize all the labels
         Table table = new Table().top();
@@ -64,9 +60,8 @@ public class HUD implements Disposable {
         levelLabel.setText(String.format(levelFormat, level));
     }
 
-    /** Increases the current score. */
-    public void increaseScore(int points) {
-        score += points;
+    /** Sets the current score. */
+    public void setScore(int score) {
         scoreLabel.setText(String.format(scoreFormat, score));
     }
 

@@ -58,6 +58,9 @@ public class PlayState extends State {
     /** Current level. */
     private int level;
 
+    /** Current score. */
+    private int score;
+
     /** Whether the bomber has collided with a skyscraper. */
     private boolean crashed;
 
@@ -80,6 +83,7 @@ public class PlayState extends State {
         maxBombs = 3;
         lives = 3;
         level = 1;
+        score = 0;
         crashed = false;
         timeSinceCrash = 0;
         createWorld(level);
@@ -161,11 +165,13 @@ public class PlayState extends State {
                     Vector2 position = bombs.get(j).getPosition();
                     float adj = ssWidth * 6 / 10;
                     explosions.add(new Explosion(position.x, position.y - adj));
-                    hud.increaseScore(1);
+                    score += 1;
+                    hud.setScore(score);
                     bombs.removeIndex(j);
                     if (ss.isDestroyed()) {
                         ssCount--;
-                        hud.increaseScore(10);
+                        score += 10;
+                        hud.setScore(score);
                     }
                 }
             }
@@ -175,7 +181,8 @@ public class PlayState extends State {
         if (ssCount == 0) {
             bomber.moveOffscreen();
             if (bomber.getY() > camera.viewportHeight) {
-                hud.increaseScore(bonus * level);
+                score += bonus * level;
+                hud.setScore(score);
                 level++;
                 createWorld(level);
             }

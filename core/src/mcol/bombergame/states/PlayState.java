@@ -120,15 +120,30 @@ public class PlayState extends State {
             bonus -= LEVEL_BONUS_DROP;
         }
 
+        // coordinate of the right-most moving entity
+        float xMax = bomber.getX();
+        if (bombs.size > 0)
+            xMax = Math.max(xMax, bombs.peek().getX());
+
+        // check for collisions with skyscrapers
         for (int i = 0; i < skyscrapers.size; i++) {
             Skyscraper ss = skyscrapers.get(i);
+
+            // don't check for collisions with skyscrapers ahead
+            if (ss.getX() - ssWidth > xMax)
+                break;
+
+            // bomber crashed
             if (ss.collides(bomber.getBounds())) {
                 Vector2 position = bomber.getPosition();
                 float adj = bomber.getBounds().width;
                 explosions.add(new Explosion(position.x + adj, position.y));
                 crashed = true;
             }
+
             for (int j = 0; j < bombs.size; j++) {
+
+                // bomb hit
                 if (ss.collides(bombs.get(j).getBounds())) {
                     Vector2 position = bombs.get(j).getPosition();
                     float adj = ssWidth * 6 / 10;

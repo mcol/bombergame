@@ -52,6 +52,9 @@ public class PlayState extends State {
     /** Maximum number of bombs active at the same time. */
     private int maxBombs;
 
+    /** Number of remaining lives. */
+    private int lives;
+
     /** Whether the bomber has collided with a skyscraper. */
     private boolean crashed;
 
@@ -76,6 +79,7 @@ public class PlayState extends State {
         explosions = new Array<Explosion>();
         ssWidth = 10;
         maxBombs = 3;
+        lives = 3;
         crashed = false;
         timeSinceCrash = 0;
         createWorld(level);
@@ -181,7 +185,12 @@ public class PlayState extends State {
         }
 
         if (crashed) {
-            bomber.setPosition(0, 100);
+            crashed = false;
+            lives--;
+        }
+
+        if (lives == 0) {
+            bomber.setPosition(-100, 100);
             maxBombs = 0;
             timeSinceCrash += dt;
             if (timeSinceCrash > 1) {
@@ -210,7 +219,7 @@ public class PlayState extends State {
         for (Explosion ee : explosions)
             ee.render(sb);
 
-        if (!crashed)
+        if (lives > 0)
             bomber.render(sb);
 
         sb.end();

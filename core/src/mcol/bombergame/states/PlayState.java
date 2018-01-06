@@ -55,14 +55,14 @@ public class PlayState extends State {
     /** Number of remaining lives. */
     private int lives;
 
+    /** Current level. */
+    private int level;
+
     /** Whether the bomber has collided with a skyscraper. */
     private boolean crashed;
 
     /** Amount of time passed since the crash. */
     private float timeSinceCrash;
-
-    /** Current level. */
-    private int level;
 
     /** Bonus awarded at each level. */
     private int bonus;
@@ -70,8 +70,7 @@ public class PlayState extends State {
     /** Constructor. */
     public PlayState(BomberGame game, SpriteBatch sb) {
         super(game, sb);
-        level = 1;
-        hud = new HUD(sb, level);
+        hud = new HUD(sb);
         background = new Background(Assets.gamebg, 0.2f, 0.5f);
         bomber = new Bomber(0, 0, BOMBER_START_SPEED);
         skyscrapers = new Array<Skyscraper>();
@@ -80,6 +79,7 @@ public class PlayState extends State {
         ssWidth = 10;
         maxBombs = 3;
         lives = 3;
+        level = 1;
         crashed = false;
         timeSinceCrash = 0;
         createWorld(level);
@@ -87,6 +87,7 @@ public class PlayState extends State {
 
     /** Initializes the world. */
     private void createWorld(int level) {
+        hud.setLevel(level);
         skyscrapers.clear();
         ssCount = Math.min(3 + level * 2, MAX_SKYSCRAPER_COUNT);
         float gap = (camera.viewportWidth - ssCount * ssWidth) / (ssCount + 1);
@@ -170,7 +171,6 @@ public class PlayState extends State {
             if (bomber.getY() > camera.viewportHeight) {
                 hud.increaseScore(bonus * level);
                 level++;
-                hud.setLevel(level);
                 createWorld(level);
             }
         }

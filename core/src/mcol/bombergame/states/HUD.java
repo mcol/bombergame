@@ -36,14 +36,14 @@ public class HUD implements Disposable {
     private int score;
 
     /** Constructor. */
-    public HUD(SpriteBatch sb, int level) {
+    public HUD(SpriteBatch sb) {
         this.sb = sb;
         this.score = 0;
 
         // labels
         Label.LabelStyle labelStyle = new Label.LabelStyle(new Font(26).get(),
                                                            Color.WHITE);
-        levelLabel = new Label(String.format(levelFormat, level), labelStyle);
+        levelLabel = new Label(String.format(levelFormat, 1), labelStyle);
         scoreLabel = new Label(String.format(scoreFormat, score), labelStyle);
 
         // table to organize all the labels

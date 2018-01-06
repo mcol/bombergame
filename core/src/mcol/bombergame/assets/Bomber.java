@@ -26,11 +26,11 @@ public class Bomber {
     /** Current position. */
     private final Vector2 position;
 
+    /** Current velocity. */
+    private final Vector2 velocity;
+
     /** Collision bounding box. */
     private final Rectangle bounds;
-
-    /** Current speed. */
-    private float xMove;
 
     /** Constructor. */
     public Bomber(int x, int y, float speed) {
@@ -38,25 +38,25 @@ public class Bomber {
                                         ANIMATION_FRAMES, 0.5f, 0.15f);
         sprite = bomberAnimation.getCurrentFrame();
         position = new Vector2(x, y);
+        velocity = new Vector2(speed, 0);
         bounds = new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
-        xMove = speed;
     }
 
     /** Moves the bomber down one row. */
     public void moveDown() {
         position.x = -sprite.getWidth() / 2;
         position.y += POSITION_CHANGE;
-        xMove += SPEED_CHANGE;
+        velocity.x += SPEED_CHANGE;
     }
 
     /** Moves the bomber up one row. */
     public void moveUp() {
         position.y -= 2 * POSITION_CHANGE;
-        xMove -= SPEED_CHANGE;
+        velocity.x -= SPEED_CHANGE;
     }
 
     public void update(float dt) {
-        position.add(xMove * dt, 0);
+        position.add(velocity.x * dt, velocity.y * dt);
         if (position.y < 0)
             position.y = 0;
         bomberAnimation.update(dt);
@@ -94,7 +94,8 @@ public class Bomber {
     }
 
     /** Sets the bomber speed. */
-    public void setSpeed(float speed) {
-        xMove = speed;
+    public void setSpeed(float x, float y) {
+        velocity.x = x;
+        velocity.y = y;
     }
 }

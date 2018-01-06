@@ -196,7 +196,6 @@ public class PlayState extends State {
             timeSinceCrash += dt;
             if (timeSinceCrash > 1) {
                 game.setScreen(new MenuState(game, sb));
-                return;
             }
         }
     }

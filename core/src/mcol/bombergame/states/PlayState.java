@@ -127,6 +127,8 @@ public class PlayState extends State {
         if (bomber.getX() > camera.viewportWidth) {
             bomber.moveDown();
             bonus -= LEVEL_BONUS_DROP;
+            if (bonus < 0)
+                bonus = 0;
         }
 
         // coordinate of the right-most moving entity

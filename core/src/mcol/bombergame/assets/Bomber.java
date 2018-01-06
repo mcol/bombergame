@@ -49,6 +49,12 @@ public class Bomber {
         xMove += SPEED_CHANGE;
     }
 
+    /** Moves the bomber up one row. */
+    public void moveUp() {
+        position.y -= 2 * POSITION_CHANGE;
+        xMove -= SPEED_CHANGE;
+    }
+
     public void update(float dt) {
         position.add(xMove * dt, 0);
         if (position.y < 0)

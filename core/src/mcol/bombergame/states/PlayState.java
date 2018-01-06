@@ -185,6 +185,7 @@ public class PlayState extends State {
         }
 
         if (crashed) {
+            bomber.moveUp();
             crashed = false;
             lives--;
         }

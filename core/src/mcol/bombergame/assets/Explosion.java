@@ -7,7 +7,7 @@ import mcol.bombergame.gfx.Animation;
 public class Explosion {
 
     /** Number of frames in the texture. */
-    public static final int ANIMATION_FRAMES = 16;
+    private static final int ANIMATION_FRAMES = 16;
 
     /** Animation representing the explosion. */
     private final Animation explosionAnimation;

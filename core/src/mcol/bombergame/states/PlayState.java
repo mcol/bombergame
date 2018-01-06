@@ -99,8 +99,12 @@ public class PlayState extends State {
         bomber.setPosition(0, (int) camera.viewportHeight - 10);
         bomber.setSpeed(BOMBER_START_SPEED + level * 5, 0);
         bombs.clear();
-        if (level > 1 && level % 3 == 1)
-            maxBombs++;
+        if (level > 3) {
+            if (level % 3 == 1)
+                maxBombs++;
+            if (level % 3 == 2)
+                lives++;
+        }
         bonus = LEVEL_BONUS_START;
     }
 

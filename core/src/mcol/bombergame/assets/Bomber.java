@@ -55,6 +55,12 @@ public class Bomber {
         velocity.x -= SPEED_CHANGE;
     }
 
+    /** Moves the bomber off the screen. */
+    public void moveOffscreen() {
+        velocity.x += 2;
+        velocity.y += 1;
+    }
+
     public void update(float dt) {
         position.add(velocity.x * dt, velocity.y * dt);
         if (position.y < 0)

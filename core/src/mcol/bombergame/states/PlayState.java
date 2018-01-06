@@ -165,11 +165,14 @@ public class PlayState extends State {
         }
 
         // level completed
-        if (ssCount == 0 && explosions.size == 0) {
-            hud.increaseScore(bonus * level);
-            level++;
-            hud.setLevel(level);
-            createWorld(level);
+        if (ssCount == 0) {
+            bomber.moveOffscreen();
+            if (bomber.getY() > camera.viewportHeight) {
+                hud.increaseScore(bonus * level);
+                level++;
+                hud.setLevel(level);
+                createWorld(level);
+            }
         }
 
         for (int i = 0; i < bombs.size; i++) {

@@ -42,8 +42,8 @@ public class Bomber {
         xMove = speed;
     }
 
-    /** Moves the bomber to the next row. */
-    public void nextRow() {
+    /** Moves the bomber down one row. */
+    public void moveDown() {
         position.x = -sprite.getWidth() / 2;
         position.y += POSITION_CHANGE;
         xMove += SPEED_CHANGE;

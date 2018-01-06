@@ -120,7 +120,7 @@ public class PlayState extends State {
 
         bomber.update(dt);
         if (bomber.getX() > camera.viewportWidth) {
-            bomber.nextRow();
+            bomber.moveDown();
             bonus -= LEVEL_BONUS_DROP;
         }
 

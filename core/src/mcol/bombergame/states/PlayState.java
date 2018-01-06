@@ -143,6 +143,8 @@ public class PlayState extends State {
                 float adj = bomber.getBounds().width;
                 explosions.add(new Explosion(position.x + adj, position.y));
                 crashed = true;
+                if (ss.isDestroyed())
+                    ssCount--;
             }
 
             for (int j = 0; j < bombs.size; j++) {

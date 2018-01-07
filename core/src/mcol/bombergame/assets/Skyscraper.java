@@ -35,6 +35,9 @@ public class Skyscraper {
     /** Skyscraper type. */
     private final int type;
 
+    /** Starting height of the skyscraper in blocks. */
+    private final int startBlockCount;
+
     /** Current height of the skyscraper in blocks. */
     private int blockCount;
 
@@ -52,6 +55,7 @@ public class Skyscraper {
         blockHeight = width * 6 / 10;
         bounds = new Rectangle(x, 0, blockWidth, (height + 1) * blockHeight);
         type = Utils.randomInteger(0, SKYSCRAPER_TYPES - 1);
+        startBlockCount = height;
         blockCount = height;
         everHit = false;
         destroyed = false;
@@ -93,6 +97,10 @@ public class Skyscraper {
 
     public float getX() {
         return position;
+    }
+
+    public int getStartBlockCount() {
+        return startBlockCount;
     }
 
     /** Returns whether the skyscraper has been destroyed. */

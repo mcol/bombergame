@@ -166,13 +166,12 @@ public class PlayState extends State {
                     float adj = ssWidth * 6 / 10;
                     explosions.add(new Explosion(position.x, position.y - adj));
                     score += 1;
-                    hud.setScore(score);
                     bombs.removeIndex(j);
                     if (ss.isDestroyed()) {
                         ssCount--;
-                        score += 10;
-                        hud.setScore(score);
+                        score += level * ss.getStartBlockCount() * 2;
                     }
+                    hud.setScore(score);
                 }
             }
         }

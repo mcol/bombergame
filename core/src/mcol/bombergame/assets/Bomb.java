@@ -17,7 +17,7 @@ public class Bomb {
     /** Animation representing the bomb. */
     private final Animation bombAnimation;
 
-    /** Single frame of the bomber animation. */
+    /** Single frame of the bomb animation. */
     private final Sprite sprite;
 
     /** Current position. */

@@ -81,7 +81,7 @@ public class Bomber {
         return position;
     }
 
-    /** Sets the the bomber coordinates. */
+    /** Sets the bomber coordinates. */
     public void setPosition(int x, int y) {
         position.x = x;
         position.y = y;

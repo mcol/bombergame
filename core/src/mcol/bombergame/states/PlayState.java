@@ -180,7 +180,8 @@ public class PlayState extends State {
         // level completed
         if (ssCount == 0) {
             bomber.moveOffscreen();
-            if (bomber.getY() > camera.viewportHeight) {
+            if (bomber.getX() > camera.viewportWidth - 10 ||
+                bomber.getY() > camera.viewportHeight) {
                 score += bonus * level;
                 hud.setScore(score);
                 level++;

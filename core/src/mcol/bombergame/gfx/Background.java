@@ -3,7 +3,7 @@ package mcol.bombergame.gfx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import mcol.bombergame.utils.Utils;
+import com.badlogic.gdx.math.MathUtils;
 
 public class Background {
 
@@ -26,7 +26,7 @@ public class Background {
         background.setOrigin(0, 0);
         speed = bgSpeed;
         scaledWidth = background.getWidth() * scale;
-        x = -Utils.randomInteger(0, (int) scaledWidth / 2);
+        x = -MathUtils.random((int) scaledWidth / 2);
     }
 
     public void update(float delta) {

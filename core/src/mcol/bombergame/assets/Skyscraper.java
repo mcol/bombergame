@@ -2,9 +2,9 @@ package mcol.bombergame.assets;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import mcol.bombergame.gfx.ImageBlock;
-import mcol.bombergame.utils.Utils;
 
 public class Skyscraper {
 
@@ -54,7 +54,7 @@ public class Skyscraper {
         blockWidth = width;
         blockHeight = width * 6 / 10;
         bounds = new Rectangle(x, 0, blockWidth, (height + 1) * blockHeight);
-        type = Utils.randomInteger(0, SKYSCRAPER_TYPES - 1);
+        type = MathUtils.random(SKYSCRAPER_TYPES - 1);
         startBlockCount = height;
         blockCount = height;
         everHit = false;

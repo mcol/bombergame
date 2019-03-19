@@ -3,6 +3,7 @@ package mcol.bombergame.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import mcol.bombergame.BomberGame;
@@ -12,7 +13,6 @@ import mcol.bombergame.assets.Bomber;
 import mcol.bombergame.assets.Explosion;
 import mcol.bombergame.assets.Skyscraper;
 import mcol.bombergame.gfx.Background;
-import mcol.bombergame.utils.Utils;
 
 public class PlayState extends State {
 
@@ -99,7 +99,7 @@ public class PlayState extends State {
         int max = 1 + 2 * level;
         for (int i = 0; i < ssCount; i++)
             skyscrapers.add(new Skyscraper(gap + i * pos, ssWidth,
-                                           Utils.randomInteger(level, max)));
+                                           MathUtils.random(level, max)));
         bomber.setPosition(0, (int) camera.viewportHeight - 10);
         bomber.setSpeed(BOMBER_START_SPEED + level * 5, 0);
         bombs.clear();

@@ -12,7 +12,7 @@ public class Font {
     private static final String FONT_NAME = "SourceCodePro-Regular.otf";
 
     /** The font generated for the game. */
-    BitmapFont font;
+    private final BitmapFont font;
 
     /** Constructor. */
     public Font(int size) {

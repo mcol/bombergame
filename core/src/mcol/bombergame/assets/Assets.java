@@ -11,6 +11,8 @@ public class Assets {
     public static Texture bombTexture;
     public static Texture skyscraperTexture;
     public static Texture explosionTexture;
+    public static Texture hudBomberTexture;
+    public static Texture hudBombTexture;
 
     /** Container for all assets. */
     private final AssetManager assets;
@@ -24,6 +26,8 @@ public class Assets {
         assets.load("SmallBomb.png", Texture.class);
         assets.load("skyscraper.png", Texture.class);
         assets.load("explosion.png", Texture.class);
+        assets.load("hud-bomber.png", Texture.class);
+        assets.load("hud-bomb.png", Texture.class);
         assets.update();
     }
 
@@ -42,6 +46,8 @@ public class Assets {
         bombTexture = assets.get("SmallBomb.png", Texture.class);
         skyscraperTexture = assets.get("skyscraper.png", Texture.class);
         explosionTexture = assets.get("explosion.png", Texture.class);
+        hudBomberTexture = assets.get("hud-bomber.png", Texture.class);
+        hudBombTexture = assets.get("hud-bomb.png", Texture.class);
     }
 
     public void dispose() {

@@ -207,6 +207,8 @@ public class PlayState extends State {
             lives--;
         }
 
+        hud.setStatus(lives, maxBombs - bombs.size);
+
         if (lives == 0) {
             bomber.setPosition(-100, 100);
             maxBombs = 0;

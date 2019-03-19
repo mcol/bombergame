@@ -247,4 +247,10 @@ public class PlayState extends State {
         // draw the hud
         hud.render();
     }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        hud.resize(width, height);
+    }
 }

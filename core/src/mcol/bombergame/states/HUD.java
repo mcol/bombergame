@@ -101,6 +101,10 @@ public class HUD implements Disposable {
         stage.draw();
     }
 
+    public void resize (int width, int height) {
+        stage.getViewport().update(width, height, true);
+    }
+
     @Override
     public void dispose() {
         stage.dispose();

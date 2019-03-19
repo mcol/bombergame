@@ -14,6 +14,8 @@ import mcol.bombergame.BomberGame;
 import mcol.bombergame.assets.Assets;
 import mcol.bombergame.gfx.Font;
 
+import java.util.Locale;
+
 public class HUD implements Disposable {
 
     /** Format string for the level. */
@@ -53,8 +55,8 @@ public class HUD implements Disposable {
         // labels
         Label.LabelStyle labelStyle = new Label.LabelStyle(new Font(26).get(),
                                                            Color.WHITE);
-        levelLabel = new Label(String.format(levelFormat, 1), labelStyle);
-        scoreLabel = new Label(String.format(scoreFormat, 0), labelStyle);
+        levelLabel = new Label(String.format(Locale.US, levelFormat, 1), labelStyle);
+        scoreLabel = new Label(String.format(Locale.US, scoreFormat, 0), labelStyle);
 
         // table to organize all the labels
         Table table = new Table().top();
@@ -71,12 +73,12 @@ public class HUD implements Disposable {
 
     /** Sets the current level. */
     public void setLevel(int level) {
-        levelLabel.setText(String.format(levelFormat, level));
+        levelLabel.setText(String.format(Locale.US, levelFormat, level));
     }
 
     /** Sets the current score. */
     public void setScore(int score) {
-        scoreLabel.setText(String.format(scoreFormat, score));
+        scoreLabel.setText(String.format(Locale.US, scoreFormat, score));
     }
 
     /** Sets the current status to be displayed. */

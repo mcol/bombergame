@@ -1,12 +1,15 @@
 package mcol.bombergame.assets;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import mcol.bombergame.gfx.Animation;
 
 public class Bomber {
+
+    /** Scaling factor for the texture. */
+    private static final float SCALE = 0.15f;
 
     /** Increase in speed at each row. */
     private static final int SPEED_CHANGE = 3;
@@ -14,14 +17,8 @@ public class Bomber {
     /** Change in height at each row. */
     private static final int POSITION_CHANGE = -8;
 
-    /** Number of frames in the texture. */
-    private static final int ANIMATION_FRAMES = 2;
-
     /** Animation representing the bomber. */
-    private final Animation bomberAnimation;
-
-    /** Single frame of the bomber animation. */
-    private final Sprite sprite;
+    private final Animation<TextureRegion> animation;
 
     /** Current position. */
     private final Vector2 position;
@@ -32,19 +29,23 @@ public class Bomber {
     /** Collision bounding box. */
     private final Rectangle bounds;
 
+    /** Time since the animation has started. */
+    private float stateTime;
+
     /** Constructor. */
     public Bomber(int x, int y, float speed) {
-        bomberAnimation = new Animation(Assets.bomberTexture,
-                                        ANIMATION_FRAMES, 0.5f, 0.15f);
-        sprite = bomberAnimation.getCurrentFrame();
+        float width = Assets.bomberTexture[0].getRegionWidth() * SCALE;
+        float height = Assets.bomberTexture[0].getRegionHeight() * SCALE;
+        animation = new Animation<TextureRegion>(0.25f, Assets.bomberTexture);
+        animation.setPlayMode(Animation.PlayMode.LOOP);
         position = new Vector2(x, y);
         velocity = new Vector2(speed, 0);
-        bounds = new Rectangle(x, y, sprite.getWidth(), sprite.getHeight());
+        bounds = new Rectangle(x, y, width, height);
     }
 
     /** Moves the bomber down one row. */
     public void moveDown() {
-        position.x = -sprite.getWidth() / 2;
+        position.x = -bounds.width / 2;
         position.y += POSITION_CHANGE;
         velocity.x += SPEED_CHANGE;
     }
@@ -62,17 +63,16 @@ public class Bomber {
     }
 
     public void update(float dt) {
+        stateTime += dt;
         position.add(velocity.x * dt, velocity.y * dt);
         if (position.y < 0)
             position.y = 0;
-        bomberAnimation.update(dt);
-        sprite.setRegion(bomberAnimation.getCurrentFrame());
-        sprite.setPosition(position.x, position.y);
         bounds.setPosition(position);
     }
 
     public void render(SpriteBatch sb) {
-        sprite.draw(sb);
+        sb.draw(animation.getKeyFrame(stateTime),
+                position.x, position.y, bounds.width, bounds.height);
     }
 
     // getters and setters

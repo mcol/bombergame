@@ -61,6 +61,9 @@ public class PlayState extends State {
     /** Current score. */
     private int score;
 
+    /** Whether the game is over. */
+    private boolean gameOver;
+
     /** Whether the bomber has collided with a skyscraper. */
     private boolean crashed;
 
@@ -85,6 +88,7 @@ public class PlayState extends State {
         level = 1;
         score = 0;
         crashed = false;
+        gameOver = false;
         timeSinceCrash = 0;
         createWorld(level);
     }
@@ -215,9 +219,8 @@ public class PlayState extends State {
             bomber.setPosition(-100, 100);
             maxBombs = 0;
             timeSinceCrash += dt;
-            if (timeSinceCrash > 1) {
-                game.setScreen(new MenuState(game, sb));
-            }
+            if (timeSinceCrash > 1)
+                gameOver = true;
         }
     }
 
@@ -227,26 +230,21 @@ public class PlayState extends State {
 
         // draw the game elements
         sb.begin();
-
         background.render(sb);
-
-        for (Skyscraper ss : skyscrapers) {
+        for (Skyscraper ss : skyscrapers)
             ss.render(sb);
-        }
-
         for (Bomb bb : bombs)
             bb.render(sb);
-
         for (Explosion ee : explosions)
             ee.render(sb);
-
-        if (lives > 0)
-            bomber.render(sb);
-
+        bomber.render(sb);
         sb.end();
 
         // draw the hud
-        hud.render();
+        if (gameOver)
+            game.setScreen(new GameOverState(game,sb, score));
+        else
+            hud.render();
     }
 
     @Override

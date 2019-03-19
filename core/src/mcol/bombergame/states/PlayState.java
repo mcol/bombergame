@@ -164,7 +164,7 @@ public class PlayState extends State {
                 // bomb hit
                 if (ss.collides(bombs.get(j).getBounds())) {
                     Vector2 position = bombs.get(j).getPosition();
-                    float adj = ssWidth * 6 / 10;
+                    float adj = ssWidth * 6 / 10f;
                     explosions.add(new Explosion(position.x, position.y - adj));
                     score += 1;
                     bombs.removeIndex(j);

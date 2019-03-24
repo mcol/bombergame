@@ -8,9 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import mcol.bombergame.BomberGame;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import mcol.bombergame.assets.Assets;
 import mcol.bombergame.gfx.Font;
 
@@ -65,9 +63,7 @@ public class HUD implements Disposable {
         table.add(scoreLabel).expandX().padTop(10);
 
         // stage
-        Viewport vp = new FitViewport(BomberGame.WIDTH * 5, BomberGame.HEIGHT * 5,
-                                      new OrthographicCamera());
-        stage = new Stage(vp, sb);
+        stage = new Stage(new ScreenViewport(new OrthographicCamera()), sb);
         stage.addActor(table);
     }
 
